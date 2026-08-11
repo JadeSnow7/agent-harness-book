@@ -1,0 +1,8 @@
+[book]
+title = "从 0 搭建 AI Agent"
+authors = ["Agent Harness contributors"]
+language = "zh"
+src = "src"
+
+[build]
+build-dir = "book"
