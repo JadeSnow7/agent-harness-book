@@ -1,10 +1,26 @@
 # 第 2 章：第一次模型调用
 
-**状态：已实现并验证。** 本章只完成一次非流式模型请求，不执行工具、不维护会话，也不验证任务结果。
+上一章说 Harness 连接模型与环境。本章从一次最基本的模型调用开始，按"理解模型调用 → 确定契约 → 实现解析 → 覆盖失败路径"四步推进，逐步构建起最小可用的 Harness。整个过程不执行工具、不维护会话——完成一次请求—响应，但还不是 Agent。
 
-上一章说 Harness 要连接模型与环境。现在先把起点固定下来：模型只能看到本次输入，不能自动看到本地文件。
+## 2.1 大模型的本质：无状态随机函数
 
-## 2.1 连续案例：模型能不能读取 `hello.txt`
+大模型的调用可以抽象成最简单的形式：
+
+```text
+output = model(input)
+```
+
+一次调用接收输入、返回输出，不携带记忆，也没有内部状态。
+
+实际使用中，为了提升用户体验，我们往往还需要设计模型记忆、模型参数等，因此可以采用下列模型：
+
+```text
+output = model(user_input, parameters, sampling, ...)
+```
+
+参数与记忆让同一模型的输出可以匹配不同场景，但也让每次调用的可复现性下降——Harness 的价值之一，就是把这类可变因素显式地管理起来。
+
+鉴于本章暂时只讨论模型调用，因此我们只需要使用第一个等式：`output = model(input)`。
 
 我们从同一个问题开始：
 
@@ -13,11 +29,7 @@
 如果无法访问文件，不要猜测。
 ```
 
-模型收到的只是这段文本。它不知道当前目录有什么文件，也不知道文件内容是否为 `hello workspace`。如果我们把它无法访问的文件描述成事实，得到的可能只是猜测。
-
-```text
-output = model(input, parameters, sampling)
-```
+模型收到的只是这段文本。它不知道当前目录有什么文件，也不知道文件内容是否为 `hello workspace`。如果我们把它无法访问的文件描述成事实，得到的可能只是猜测。即使带上 `parameters` 和 `sampling`，模型依然看不到这些环境状态。
 
 模型可以生成回答，但它不会自动获得：
 
@@ -30,16 +42,7 @@ output = model(input, parameters, sampling)
 
 ## 2.2 一次请求—响应的最小流程
 
-先用伪代码固定职责：
-
-```python
-config = load_config()
-request = build_request(config, prompt)
-response = send_http_request(request, config)
-return parse_response(response)
-```
-
-配置、请求构造、网络传输和响应解析彼此独立。后续更换 Provider 或增加工具时，可以替换边界适配器，而不必让每一层都知道 Provider JSON。
+一次最小调用涉及四个角色：调用者、客户端、Provider API 和模型服务。
 
 ```mermaid
 sequenceDiagram
@@ -58,9 +61,22 @@ sequenceDiagram
     Client-->>User: 提取文本
 ```
 
+
+
+如果你有一定的网络基础知识，可以尝试写出下面的伪代码：
+
+```python
+config = load_config()
+request = build_request(config, prompt)
+response = send_http_request(request, config)
+return parse_response(response)
+```
+
+配置、请求构造、网络传输和响应解析彼此独立。后续更换 Provider 或增加工具时，可以替换边界适配器，而不必让每一层都知道 Provider JSON。
+
 HTTP 库会替我们处理 DNS、TCP 和 TLS；本章只要求理解 URL、Header、JSON Body、状态码和响应解析。
 
-## 2.3 先固定请求和响应契约
+## 2.3 确定请求和响应契约
 
 最小请求可以写成：
 
@@ -77,7 +93,7 @@ Responses API 与 Chat Completions 的字段不同：前者使用 `input` 和 `o
 
 ## 2.4 Python 实现：配置、传输、解析
 
-下面的片段来自 `examples/python/m0-model-call/chat_once.py`，不是独立复制的示例。
+下面的片段来自 `examples/python/m0-model-call/chat_once.py`，不是独立复制的示例。它把配置、传输与解析放在同一模块，通过注入接口分离，因此默认可以离线运行。
 
 ### 构造请求
 
@@ -109,24 +125,28 @@ Responses API 与 Chat Completions 的字段不同：前者使用 `input` 和 `o
 {{#include ../../examples/python/m0-model-call/test_chat_once.py:m0-reading-case}}
 ```
 
+
+
 ## 2.5 失败路径先于真实请求
 
 默认测试不访问真实网络，因为真实请求需要 API Key、网络和费用控制。至少应覆盖：
 
-| 场景 | 期望结果 |
-|---|---|
-| 缺少 API Key 或模型名 | 发请求前返回配置错误 |
-| HTTP 401、429、500 | 返回状态错误，不回显响应正文 |
-| 非法 JSON | 返回响应格式错误 |
-| 缺少 `output` 或 `output_text` | 明确失败，不伪造文本 |
-| reasoning 在文本之前 | 仍然提取可识别文本 |
-| 多个 `output_text` | 按响应顺序合并 |
+
+| 场景                          | 期望结果           |
+| --------------------------- | -------------- |
+| 缺少 API Key 或模型名             | 发请求前返回配置错误     |
+| HTTP 401、429、500            | 返回状态错误，不回显响应正文 |
+| 非法 JSON                     | 返回响应格式错误       |
+| 缺少 `output` 或 `output_text` | 明确失败，不伪造文本     |
+| reasoning 在文本之前             | 仍然提取可识别文本      |
+| 多个 `output_text`            | 按响应顺序合并        |
+
 
 验证命令：
 
 ```bash
-python3 -m py_compile examples/python/m0-model-call/chat_once.py
-python3 -m unittest discover \
+python3.11 -m py_compile examples/python/m0-model-call/chat_once.py
+python3.11 -m unittest discover \
   -s examples/python/m0-model-call \
   -p 'test_*.py'
 ```
@@ -136,7 +156,7 @@ python3 -m unittest discover \
 ```bash
 export OPENAI_API_KEY="your_api_key_here"
 export OPENAI_MODEL="a-model-available-to-your-account"
-python3 examples/python/m0-model-call/chat_once.py
+python3.11 examples/python/m0-model-call/chat_once.py
 ```
 
 模型目录和账户权限会变化，示例使用环境变量而不是写死模型名。缺少配置时程序应安全失败。
@@ -155,3 +175,18 @@ python3 examples/python/m0-model-call/chat_once.py
 实现路径和 Rust 对照见[实现索引](implementations.md)。
 
 [^responses-api]: OpenAI, [Responses API reference](https://platform.openai.com/docs/api-reference/responses)，核验日期：2026-08-08。具体字段以当前官方文档为准。
+
+## 2.7 一次调用换来了什么，又没有换来什么
+
+在本章之前，Harness 只有概念边界；现在有了配置、请求构造、Transport、响应解析和可注入的 Fake Transport。真正的收益不是“能发 HTTP”，而是 Provider 访问被压缩在一个可替换边界内：测试可以构造成功、超时、HTTP 错误和坏 JSON，而不需要网络或真实 API Key；上层也能区分“请求没发出去”和“响应无法解释”。
+
+代价同样具体。非流式请求会等待完整响应，Transport 超时仍可能留下未知的远端状态；解析器只认识当前约定的响应形状，Provider 字段变化会在边界处失败。模型本身还可能产生事实错误或自信的错误文本，单次调用没有工具、状态和独立验证，因此不能把 `200 OK` 当成任务完成证据。
+
+| 当前能力 | 状态 |
+| --- | --- |
+| Python/Rust M0 请求与解析 | 已实现并验证 |
+| 默认测试不联网、不读取真实密钥 | 已实现并验证 |
+| 重试、fallback、streaming、成本控制 | 设计骨架/尚未实现 |
+| Agent Loop 与环境执行 | 尚未由本章实现 |
+
+当前成熟度是 **Prototype**：它足以作为后续协议和工具章节的输入，也有失败路径测试；但 Provider 兼容性、重试语义和运行观测还没有形成稳定承诺。这里有意留下的技术债是只支持一次、非流式、边界清楚的请求。下一章的必要性正由这个限制产生：如果上层继续直接读取 Provider JSON，第二个 Provider 一加入，解析逻辑就会扩散到整个 Loop。

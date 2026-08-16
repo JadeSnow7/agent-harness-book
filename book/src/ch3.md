@@ -123,8 +123,8 @@ function_call_output.call_id
 验证命令：
 
 ```bash
-python3 -m py_compile examples/python/m1-unified-protocol/*.py
-python3 -m unittest discover \
+python3.11 -m py_compile examples/python/m1-unified-protocol/*.py
+python3.11 -m unittest discover \
   -s examples/python/m1-unified-protocol \
   -p 'test_*.py'
 ```
@@ -138,3 +138,18 @@ M1 让 Harness 拥有一套稳定语言：模型可以回复文本，也可以�
 这仍不是 Agent Loop。循环、预算、重试和停止策略属于后续章节。
 
 [^function-calling]: OpenAI, [Function calling guide](https://developers.openai.com/api/docs/guides/function-calling)，核验日期：2026-08-08。
+
+## 3.8 统一协议的收益不是“类型更漂亮”
+
+M0 之后，系统已经能得到 Provider 响应，但上层若继续依赖厂商字段，就会在文本、拒答、工具候选和工具结果之间形成多套分支。本章把这些内容收敛成 `Message`、`ContentBlock`、`ToolDefinition` 和统一错误，收益是 Agent Loop 可以消费同一套内部对象；Fake Model 和协议测试也能直接构造 `ToolUseBlock`，不必伪造真实网络响应。
+
+这次收敛的代价是信息可能被抹平。Provider 的特殊字段、调用粒度和错误语义如果没有明确映射，就会在适配层悄悄丢失；协议一旦被上层大量依赖，后续修改会变成兼容性问题。AI 的非确定性还会把缺少 `call_id`、错误参数和混合内容块带到边界，若解析器把它们当普通文本，错误会继续向执行层放大。
+
+| 协议能力 | 当前状态 |
+| --- | --- |
+| Python/Rust M1 消息、内容块和工具定义 | 已实现并验证 |
+| 文本、拒答、function call、tool result 的离线映射 | 已实现并验证 |
+| 多 Provider 的真实兼容矩阵与流式语义 | 设计骨架/尚未实现 |
+| 工具候选的实际执行 | 尚未完成，留给 M2 |
+
+当前成熟度可判为 **Usable（教学范围内）**：协议已经能支撑下一步工具闭环，测试覆盖了关键失败形状；但公共 API 仍按仓库决策属于实验性，不能因为“统一”就宣称稳定或生产就绪。有意留下的技术债是保持最小协议，不提前封装厂商全部能力。下一章必须把 `ToolUseBlock` 变成受控的 `ToolCall`，否则统一协议只是在内存里换了名字。

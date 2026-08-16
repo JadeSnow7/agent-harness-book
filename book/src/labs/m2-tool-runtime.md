@@ -22,10 +22,10 @@ Workspace 约束已存在路径、写入目标的现有父目录、`..`、绝对
 ## 验证
 
 ```bash
-python3 -m py_compile \
+python3.11 -m py_compile \
   examples/python/m2-tool-runtime/*.py \
   examples/python/m2-tool-runtime/tools/*.py
-python3 -m unittest discover \
+python3.11 -m unittest discover \
   -s examples/python/m2-tool-runtime \
   -p 'test_*.py'
 cargo test -p m2-tool-runtime

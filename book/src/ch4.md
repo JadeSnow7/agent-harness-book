@@ -83,10 +83,10 @@ ToolResult     → ToolResultBlock → role=tool Message
 ## 4.8 验证与下一步
 
 ```bash
-python3 -m py_compile \
+python3.11 -m py_compile \
   examples/python/m2-tool-runtime/*.py \
   examples/python/m2-tool-runtime/tools/*.py
-python3 -m unittest discover \
+python3.11 -m unittest discover \
   -s examples/python/m2-tool-runtime \
   -p 'test_*.py'
 ```
@@ -94,3 +94,18 @@ python3 -m unittest discover \
 Rust 对照实现、完整七工具目录、Workspace 原子写入、glob、bash 安全说明和完整失败矩阵见 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md) 与[实现索引](implementations.md)。
 
 M1 让系统听懂工具候选，M2 让系统稳定地做一次并返回观察。下一章 M3 才会加入有界循环、步数预算、停止原因和重复调用策略。
+
+## 4.9 第一个闭环的工程账本
+
+本章前，模型只能提出一个结构化候选；本章后，`ToolRegistry`、`Workspace` 和 `read` 让一次动作经过校验、执行并把原 `call_id` 的观察返回给模型。收益是系统第一次真正改变了“模型只能输出文本”的边界：工具是否存在、路径是否越过工作区、读取是否成功，都可以由 Runtime 产生可观察结果，而不是让模型猜测。
+
+这个收益不是免费的。Registry 增加了注册和参数校验的耦合；Workspace 边界若只检查字符串路径，仍需面对 symlink、TOCTOU 和权限问题；工具失败、超时或副作用未知时，一步闭环没有恢复协议。AI 还可能选择不存在的工具、传入错误参数，或在拿到工具结果后仍然给出未经验证的结论。当前的局部 postcondition 只验证一次动作，不能替代任务级 Validator。
+
+| 能力 | 当前状态 |
+| --- | --- |
+| Python/Rust M2 一步 Tool Runtime 与 `hello.txt` 案例 | 已实现并验证 |
+| 七工具、Workspace 和失败矩阵 | 已实现并验证，仍是教学边界 |
+| 多轮 Loop、预算、恢复、审批和 ChangeSet | 设计骨架/尚未实现 |
+| 生产级沙箱与外部副作用控制 | 尚未实现 |
+
+当前成熟度是 **Prototype**：这条路径可运行、可测试、能展示真实的模型—工具—观察闭环，但只支持固定一步，写入工具也不能被误称为完整变更审查系统。有意留下的技术债是把执行次数限制在一步，以便先看清 `call_id`、路径和失败回传。下一章的真实问题已经出现：第二次模型响应如果仍然提出工具，固定流程就无法继续；系统需要循环，但循环也必须带预算和停止原因。

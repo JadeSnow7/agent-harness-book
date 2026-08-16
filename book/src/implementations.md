@@ -6,7 +6,7 @@
 
 | 语言 | 源码 | 测试 | 状态 |
 |---|---|---|---|
-| Python | `examples/python/m0-model-call/chat_once.py` | `python3 -m unittest discover -s examples/python/m0-model-call -p 'test_*.py'` | 已实现并验证 |
+| Python | `examples/python/m0-model-call/chat_once.py` | `python3.11 -m unittest discover -s examples/python/m0-model-call -p 'test_*.py'` | 已实现并验证 |
 | Rust | `examples/rust/m0-model-call/src/main.rs` | `cargo test -p m0-model-call` | 已实现并验证 |
 
 核心边界是配置、请求构造、HTTP 传输和响应解析；默认测试不联网、不读取真实 API Key。
@@ -15,7 +15,7 @@
 
 | 语言 | 源码 | 测试 | 状态 |
 |---|---|---|---|
-| Python | `examples/python/m1-unified-protocol/` | `python3 -m unittest discover -s examples/python/m1-unified-protocol -p 'test_*.py'` | 已实现并验证 |
+| Python | `examples/python/m1-unified-protocol/` | `python3.11 -m unittest discover -s examples/python/m1-unified-protocol -p 'test_*.py'` | 已实现并验证 |
 | Rust | `examples/rust/m1-unified-protocol/` | `cargo test -p m1-unified-protocol` | 已实现并验证 |
 
 重点检查 `Message`、`ContentBlock`、`ToolDefinition`、`call_id`、function call 映射和安全错误。
@@ -24,7 +24,7 @@
 
 | 语言 | 源码 | 测试 | 状态 |
 |---|---|---|---|
-| Python | `examples/python/m2-tool-runtime/` | `python3 -m unittest discover -s examples/python/m2-tool-runtime -p 'test_*.py'` | 已实现并验证 |
+| Python | `examples/python/m2-tool-runtime/` | `python3.11 -m unittest discover -s examples/python/m2-tool-runtime -p 'test_*.py'` | 已实现并验证 |
 | Rust | `examples/rust/m2-tool-runtime/` | `cargo test -p m2-tool-runtime` | 已实现并验证 |
 
 主线案例使用 `read hello.txt`。七工具、Workspace 和完整失败矩阵见 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。
