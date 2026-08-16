@@ -77,6 +77,19 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual(config.timeout_s, 12.5)
         self.assertEqual(config.endpoint, "https://api.openai.com/v1/responses")
 
+    def test_timeout_must_be_finite(self):
+        """非有限超时（inf、nan）必须被拒绝，避免请求无限等待。"""
+
+        base = {
+            "OPENAI_API_KEY": "secret-value",
+            "OPENAI_MODEL": "gpt-5.6-luna",
+        }
+
+        for bad in ("inf", "nan", "0", "-1", "abc"):
+            with self.subTest(bad=bad):
+                with self.assertRaisesRegex(ConfigError, "positive number"):
+                    load_config({**base, "OPENAI_TIMEOUT_S": bad})
+
 
 class RequestTests(unittest.TestCase):
     """验证请求构造和传输边界。"""

@@ -1,0 +1,28 @@
+[workspace]
+members = [
+    "crates/agent-core",
+    "crates/model-adapters",
+    "crates/tool-runtime",
+    "crates/context-engine",
+    "crates/session-store",
+    "crates/policy-engine",
+    "crates/validators",
+    "crates/observability",
+    "examples/rust/p0-demo",
+    "examples/rust/m0-model-call",
+    "examples/rust/m1-unified-protocol",
+    "examples/rust/m2-tool-runtime",
+]
+resolver = "3"
+
+[workspace.dependencies]
+regex = "1.11"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+serde_json = "1.0"
+
+[workspace.package]
+edition = "2024"
+license = "MIT OR Apache-2.0"
+publish = false
+rust-version = "1.85"
+version = "0.1.0"

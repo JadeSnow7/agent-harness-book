@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 from dataclasses import dataclass
@@ -102,7 +103,7 @@ def load_config(environ: Mapping[str, str] | None = None) -> Config:
         timeout_s = float(timeout_text)
     except ValueError as error:
         raise ConfigError("OPENAI_TIMEOUT_S must be a positive number") from error
-    if timeout_s <= 0:
+    if not math.isfinite(timeout_s) or timeout_s <= 0:
         raise ConfigError("OPENAI_TIMEOUT_S must be a positive number")
 
     return Config(

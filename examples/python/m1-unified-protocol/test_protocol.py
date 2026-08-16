@@ -372,6 +372,16 @@ class ChatOnceTests(unittest.TestCase):
         with self.assertRaisesRegex(ConfigError, "missing OPENAI_MODEL"):
             load_config({"OPENAI_API_KEY": "secret-value"})
 
+    def test_timeout_must_be_finite(self):
+        """非有限超时（inf、nan）必须被拒绝，避免请求无限等待。"""
+
+        base = {"OPENAI_API_KEY": "secret-value", "OPENAI_MODEL": "gpt-test"}
+
+        for bad in ("inf", "nan", "0", "-1", "abc"):
+            with self.subTest(bad=bad):
+                with self.assertRaisesRegex(ConfigError, "positive number"):
+                    load_config({**base, "OPENAI_TIMEOUT_S": bad})
+
     def test_chat_once_round_trip_with_fake_transport(self):
         transport = FakeTransport(
             HttpResponse(
