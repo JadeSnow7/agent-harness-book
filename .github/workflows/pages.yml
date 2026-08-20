@@ -30,6 +30,9 @@ jobs:
       - name: Install mdBook
         run: cargo install mdbook --locked --version 0.5.4
 
+      - name: Install mdBook Mermaid preprocessor
+        run: cargo install mdbook-mermaid --locked --version 0.17.0
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 

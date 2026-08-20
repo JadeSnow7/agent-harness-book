@@ -6,3 +6,14 @@ src = "src"
 
 [build]
 build-dir = "book"
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+after = ["links"]
+
+[output]
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
