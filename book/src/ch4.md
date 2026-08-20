@@ -95,6 +95,26 @@ Rust 对照实现、完整七工具目录、Workspace 原子写入、glob、bash
 
 M1 让系统听懂工具候选，M2 让系统稳定地做一次并返回观察。下一章 M3 才会加入有界循环、步数预算、停止原因和重复调用策略。
 
+### 累计 Rust 工程对照
+
+累计工程 `tutorial/agent-harness/` 把同一条边界落到 Rust，但只注册 `read` 一个工具：`ToolRegistry` 负责查找、参数校验和失败收敛，`Workspace` 只提供 `resolve` 和相对路径转换（不含 `write`/`edit` 需要的原子替换），`bridge` 模块是唯一同时认识 Runtime 类型和 M1 协议类型的地方，`one_step::run_one_tool_step` 实现固定两次调用的闭环。`call_id` 从 `ToolUseBlock` 经 `ToolCall`、`ToolResult` 到 `ToolResultBlock` 全程一致，可用离线测试验证：
+
+```bash
+cargo test -p tutorial-agent-harness --offline
+```
+
+下面两张图分别是这条闭环的时序，以及 `read` 从候选到结果的失败分类：
+
+```mermaid
+{{#include assets/ch04/one-step-closure.mmd}}
+```
+
+```mermaid
+{{#include assets/ch04/tool-call-failure-paths.mmd}}
+```
+
+这仍然是固定一步、不是循环——第二次模型响应如果还想要工具，闭环会显式报错而不是继续。ls/find/grep/write/edit/bash 六个工具和原子写入仍只留在 `examples/` 与 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。实现与离线测试索引见 [实现索引](implementations.md)。
+
 ## 4.9 第一个闭环的工程账本
 
 本章前，模型只能提出一个结构化候选；本章后，`ToolRegistry`、`Workspace` 和 `read` 让一次动作经过校验、执行并把原 `call_id` 的观察返回给模型。收益是系统第一次真正改变了“模型只能输出文本”的边界：工具是否存在、路径是否越过工作区、读取是否成功，都可以由 Runtime 产生可观察结果，而不是让模型猜测。
@@ -104,6 +124,7 @@ M1 让系统听懂工具候选，M2 让系统稳定地做一次并返回观察�
 | 能力 | 当前状态 |
 | --- | --- |
 | Python/Rust M2 一步 Tool Runtime 与 `hello.txt` 案例 | 已实现并验证 |
+| Rust（累计工程）M2 一步 Tool Runtime（仅 `read`） | 已实现并验证 |
 | 七工具、Workspace 和失败矩阵 | 已实现并验证，仍是教学边界 |
 | 多轮 Loop、预算、恢复、审批和 ChangeSet | 设计骨架/尚未实现 |
 | 生产级沙箱与外部副作用控制 | 尚未实现 |

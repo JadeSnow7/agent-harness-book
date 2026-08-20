@@ -234,13 +234,14 @@ fn parse_arguments(arguments: &Value) -> Result<Value, ProtocolError> {
 pub fn tool_result_message(
     id: impl Into<String>,
     content: impl Into<String>,
+    is_error: bool,
 ) -> Result<Message, ProtocolError> {
     Message::try_new(
         Role::Tool,
         vec![ContentBlock::ToolResult(ToolResultBlock {
             tool_use_id: id.into(),
             content: content.into(),
-            is_error: false,
+            is_error,
         })],
     )
 }

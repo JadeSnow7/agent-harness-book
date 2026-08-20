@@ -1,0 +1,29 @@
+flowchart TD
+    A[ToolUseBlock 候选] --> B[ToolCall\n保留 call_id]
+    B --> C{Registry 已注册\n该工具名?}
+    C -->|否| F1[Failed\nunknown tool]
+    C -->|是| D{参数校验通过?\npath/offset/limit}
+    D -->|否| F2[Failed\ninvalid arguments]
+    D -->|是| E{Workspace.resolve\n通过?}
+    E -->|".. / 绝对路径 / 经不存在父目录逃逸"| F3[Failed\npath escapes workspace]
+    E -->|目标不存在或不是文件| F4[Failed\npath not found / not a file]
+    E -->|通过| G[读取文件字节]
+    G --> H{超过 DEFAULT_MAX_BYTES\n或 DEFAULT_MAX_LINES?}
+    H -->|是| I[截断内容\ntruncated = true]
+    H -->|否| J[truncated = false]
+    I --> K[Succeeded\ncontent · line_count · truncated]
+    J --> K
+
+    F1 --> L[ToolResult → ToolResultBlock\ntool_use_id = call_id]
+    F2 --> L
+    F3 --> L
+    F4 --> L
+    K --> L
+    L --> M[追加进第二次模型调用]
+
+    classDef gate fill:#fff0f0,stroke:#b34d4d,stroke-width:2px,color:#5c1f1f
+    classDef check fill:#eef6ff,stroke:#4779a8,color:#17324d
+    classDef result fill:#edf8ed,stroke:#4d8b4d,color:#214d21
+    class F1,F2,F3,F4 gate
+    class A,B,C,D,E,G,H,I,J check
+    class K,L,M result

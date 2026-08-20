@@ -28,8 +28,9 @@
 |---|---|---|---|
 | Python | `examples/python/m2-tool-runtime/` | `python3.11 -m unittest discover -s examples/python/m2-tool-runtime -p 'test_*.py'` | 已实现并验证 |
 | Rust | `examples/rust/m2-tool-runtime/` | `cargo test -p m2-tool-runtime` | 已实现并验证 |
+| Rust（累计工程） | `tutorial/agent-harness/` | `cargo test -p tutorial-agent-harness --offline` | 已实现并验证 |
 
-主线案例使用 `read hello.txt`。七工具、Workspace 和完整失败矩阵见 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。
+累计工程只注册 `read`；ls/find/grep/write/edit/bash 与原子写入仍只存在于 examples/。主线案例使用 `read hello.txt`。七工具、Workspace 和完整失败矩阵见 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。
 
 ## P0：确定性组合切片
 

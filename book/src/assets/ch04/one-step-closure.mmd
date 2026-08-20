@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant Reader as 调用者/CLI
+    participant Runtime as Runtime（Registry）
+    participant Model as 模型服务
+    participant WS as Workspace
+
+    Reader->>Runtime: 发起一步闭环(request)
+    Runtime->>Runtime: 从 Registry 生成工具声明并附加到请求
+    Runtime->>Model: 第一次调用（携带 read 声明）
+    Model-->>Runtime: 返回 ToolUseBlock（候选，未执行）
+
+    alt 候选数量不等于 1
+        Runtime-->>Reader: OneStepError（未恰好一个工具候选）
+    else 恰好一个候选
+        Runtime->>Runtime: ToolUseBlock → ToolCall（保留 call_id）
+        Runtime->>WS: resolve(path)
+        WS-->>Runtime: 校验通过，或越界/不存在错误
+        Runtime->>Runtime: 执行 read，或把失败收敛为 ToolResult
+        Runtime->>Runtime: ToolResult → ToolResultBlock（tool_use_id = call_id）
+        Runtime->>Model: 第二次调用（追加 assistant 消息 + tool 消息）
+        Model-->>Runtime: 返回响应
+
+        alt 第二次响应仍包含 ToolUseBlock
+            Runtime-->>Reader: OneStepError（Agent Loop 留给后续章节）
+        else 第二次响应没有文本
+            Runtime-->>Reader: OneStepError（缺少最终文本）
+        else 第二次响应是非空最终文本
+            Runtime-->>Reader: OneStepResult（两次响应 + ToolResult）
+        end
+    end
