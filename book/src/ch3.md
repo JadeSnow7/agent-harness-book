@@ -137,6 +137,10 @@ M1 让 Harness 拥有一套稳定语言：模型可以回复文本，也可以�
 
 这仍不是 Agent Loop。循环、预算、重试和停止策略属于后续章节。
 
+### 累计 Rust 工程对照
+
+累计工程 `tutorial/agent-harness/` 将同一条边界落到 Rust：`build_model_request` 构造统一请求，`complete` 负责 adapter 与低层 Transport，返回 `ModelResponse`；CLI 通过 `format_response` 展示文本和工具候选。实现与离线测试索引见 [实现索引](implementations.md)，本切片不执行 `read`。
+
 [^function-calling]: OpenAI, [Function calling guide](https://developers.openai.com/api/docs/guides/function-calling)，核验日期：2026-08-08。
 
 ## 3.8 统一协议的收益不是“类型更漂亮”

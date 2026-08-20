@@ -190,3 +190,31 @@ python3.11 examples/python/m0-model-call/chat_once.py
 | Agent Loop 与环境执行 | 尚未由本章实现 |
 
 当前成熟度是 **Prototype**：它足以作为后续协议和工具章节的输入，也有失败路径测试；但 Provider 兼容性、重试语义和运行观测还没有形成稳定承诺。这里有意留下的技术债是只支持一次、非流式、边界清楚的请求。下一章的必要性正由这个限制产生：如果上层继续直接读取 Provider JSON，第二个 Provider 一加入，解析逻辑就会扩散到整个 Loop。
+
+## 2.8 Rust 累计工程
+
+本章的 Rust 代码位于 `tutorial/agent-harness/`。它是从这里开始逐章累积的教学工程：`Config` 负责环境变量和边界校验，`build_request` 生成当前 Provider 的最小 JSON，`Transport` 把 HTTP 与可控的 Fake Transport 隔开，解析器只在 Provider 边界内读取 `output_text`。
+
+可以先运行离线测试：
+
+```bash
+cargo test -p tutorial-agent-harness --offline
+```
+
+手动真实请求仍需要用户自己提供配置：
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+export OPENAI_MODEL="a-model-available-to-your-account"
+cargo run -p tutorial-agent-harness
+```
+
+默认测试不会读取真实密钥或访问网络。Rust 工程与 Python 原型共享 M0 的行为边界，但本章不把 Provider JSON 提前提升为统一协议；这正是下一章要解决的问题。
+
+## 2.9 一次真实调用的效果
+
+在本地配置 `OPENAI_API_KEY` 和 `OPENAI_MODEL` 后，累计工程可以发起一次真实的非流式请求。下面的效果图基于一次真实终端输出生成，图中没有保存或展示 API Key；它证明的是这次请求返回了模型文本，不证明模型访问了工作区或任务已经完成。
+
+![一次真实模型调用的终端输出](assets/ch02/live-call.svg)
+
+本次示例使用的模型是 `gpt-5.4-mini`。模型目录和账户权限会变化，读者应以自己账户当前可用的模型 ID 为准。

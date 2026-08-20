@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">ch2 一次真实模型调用的终端输出</title>
+  <desc id="desc">基于用户终端真实输出生成的无密钥终端效果图。</desc>
+  <rect width="1280" height="640" fill="#f3f4f6"/>
+  <text x="64" y="72" fill="#64748b" font-family="-apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif" font-size="18" letter-spacing="3">CHAPTER 2 · REAL API CALL</text>
+  <text x="64" y="122" fill="#0f172a" font-family="-apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif" font-size="34" font-weight="700">一次非流式模型调用的实际输出</text>
+
+  <rect x="64" y="166" width="1152" height="400" rx="18" fill="#111827"/>
+  <rect x="64" y="166" width="1152" height="54" rx="18" fill="#1f2937"/>
+  <rect x="64" y="202" width="1152" height="18" fill="#1f2937"/>
+  <circle cx="92" cy="193" r="7" fill="#fb7185"/>
+  <circle cx="116" cy="193" r="7" fill="#fbbf24"/>
+  <circle cx="140" cy="193" r="7" fill="#34d399"/>
+  <text x="172" y="199" fill="#94a3b8" font-family="-apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif" font-size="15">tutorial-agent-harness</text>
+
+  <text x="98" y="270" fill="#86efac" font-family="Menlo,Monaco,Consolas,monospace" font-size="20">$</text>
+  <text x="122" y="270" fill="#f8fafc" font-family="Menlo,Monaco,Consolas,monospace" font-size="20">export OPENAI_MODEL="gpt-5.4-mini"</text>
+  <text x="98" y="310" fill="#86efac" font-family="Menlo,Monaco,Consolas,monospace" font-size="20">$</text>
+  <text x="122" y="310" fill="#f8fafc" font-family="Menlo,Monaco,Consolas,monospace" font-size="20">cargo run -p tutorial-agent-harness</text>
+  <text x="98" y="355" fill="#94a3b8" font-family="Menlo,Monaco,Consolas,monospace" font-size="18">Finished dev profile [unoptimized + debuginfo] target(s) in 1.46s</text>
+  <text x="98" y="388" fill="#94a3b8" font-family="Menlo,Monaco,Consolas,monospace" font-size="18">Running target/debug/tutorial-agent-harness</text>
+  <text x="98" y="454" fill="#fde68a" font-family="-apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif" font-size="21">因为单次模型调用只是“生成一次回答”，而 Agent 需要具备持续感知目标、规划、</text>
+  <text x="98" y="489" fill="#fde68a" font-family="-apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif" font-size="21">调用工具、执行动作并根据结果迭代调整的闭环能力。</text>
+  <text x="64" y="610" fill="#475569" font-family="-apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif" font-size="16">基于用户终端真实输出生成；图中不包含 API key。</text>
+</svg>
