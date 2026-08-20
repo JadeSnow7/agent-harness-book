@@ -80,14 +80,16 @@ impl Tool for ReadTool {
             .get("offset")
             .and_then(Value::as_u64)
             .unwrap_or(1)
-            .max(1) as usize;
-        let start = offset.saturating_sub(1);
+            .max(1);
+        // Clamp in u64 space first so an offset past EOF (or near u64::MAX)
+        // can't overflow the usize arithmetic below.
+        let start = offset.saturating_sub(1).min(lines.len() as u64) as usize;
         let limit = object
             .get("limit")
             .and_then(Value::as_u64)
             .map(|value| value as usize)
             .unwrap_or(DEFAULT_MAX_LINES);
-        let end = (start + limit).min(lines.len());
+        let end = start.saturating_add(limit).min(lines.len());
         if end < lines.len() {
             truncated = true;
         }

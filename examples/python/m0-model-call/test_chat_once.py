@@ -12,6 +12,7 @@ from chat_once import (
     ConfigError,
     HttpResponse,
     ResponseFormatError,
+    TransportError,
     chat_once,
     build_request,
     extract_output_text,
@@ -23,10 +24,19 @@ from chat_once import (
 class FakeTransport:
     """记录请求并返回预置响应，模拟 HTTP Transport。"""
 
-    def __init__(self, response: HttpResponse) -> None:
-        """保存测试响应，并准备记录最后一次请求。"""
+    def __init__(
+        self,
+        response: HttpResponse | None = None,
+        raises: Exception | None = None,
+    ) -> None:
+        """保存测试响应，并准备记录最后一次请求。
+
+        当 ``raises`` 被设置时，``post_json`` 不返回响应而是抛出该异常，
+        模拟真实 Transport 遇到网络失败或超时的情况。
+        """
 
         self.response = response
+        self.raises = raises
         self.last_request: dict[str, object] | None = None
 
     def post_json(self, url, headers, payload, timeout_s):
@@ -38,6 +48,8 @@ class FakeTransport:
             "payload": dict(payload),
             "timeout_s": timeout_s,
         }
+        if self.raises is not None:
+            raise self.raises
         return self.response
 
 
@@ -160,6 +172,18 @@ class RequestTests(unittest.TestCase):
         """返回本测试期望的请求 JSON。"""
 
         return {"model": "gpt-5.6-luna", "input": "Hello"}
+
+    def test_transport_failure_propagates_without_leaking_payload_or_headers(self):
+        """Transport 失败（如超时）时错误必须是 TransportError，且不回显密钥或请求体。"""
+
+        transport = FakeTransport(raises=TransportError("request failed: Timeout"))
+
+        with self.assertRaises(TransportError) as context:
+            chat_once("Hello", self.config, transport)
+
+        message = str(context.exception)
+        self.assertNotIn(self.config.api_key, message)
+        self.assertNotIn("Hello", message)
 
 
 class ResponseTests(unittest.TestCase):

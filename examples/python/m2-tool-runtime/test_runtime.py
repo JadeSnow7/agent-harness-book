@@ -159,6 +159,20 @@ class SearchListTests(WorkspaceTestCase):
         self.assertFalse(unsupported.succeeded)
         self.assertIn("not supported", unsupported.error or "")
 
+    def test_find_skips_unrelated_cross_boundary_symlink(self):
+        outside = Path(self._tmp.name) / "outside-file.txt"
+        outside.write_text("outside", encoding="utf-8")
+        link = self.root / "escape-link.txt"
+        try:
+            link.symlink_to(outside)
+        except OSError as error:
+            self.skipTest(f"symlink unavailable: {error}")
+
+        result = self.execute("find", {"pattern": "**/*"})
+        self.assertTrue(result.succeeded)
+        self.assertIn("hello.txt", result.output["matches"])
+        self.assertNotIn("escape-link.txt", result.output["matches"])
+
     def test_grep_finds_symbol(self):
         result = self.execute(
             "grep",
@@ -189,6 +203,21 @@ class SearchListTests(WorkspaceTestCase):
         self.assertIn("before", regex.output["matches"][0]["snippet"])
         literal = self.execute("grep", {"pattern": "Alpha.", "literal": True})
         self.assertEqual(literal.output["count"], 1)
+
+    def test_grep_skips_unrelated_cross_boundary_symlink(self):
+        outside = Path(self._tmp.name) / "outside-file.txt"
+        outside.write_text("MESSAGE outside", encoding="utf-8")
+        link = self.root / "escape-link.txt"
+        try:
+            link.symlink_to(outside)
+        except OSError as error:
+            self.skipTest(f"symlink unavailable: {error}")
+
+        result = self.execute("grep", {"pattern": "MESSAGE", "glob": "**/*"})
+        self.assertTrue(result.succeeded)
+        self.assertTrue(
+            any(match["path"].endswith("app.py") for match in result.output["matches"])
+        )
 
 
 class BashAndRegistryTests(WorkspaceTestCase):

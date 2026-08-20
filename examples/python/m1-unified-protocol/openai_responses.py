@@ -224,7 +224,7 @@ def _decode_message_item(item: Mapping[str, Any]) -> list[ContentBlock]:
 def _decode_function_call(item: Mapping[str, Any]) -> ToolUseBlock:
     """把 Responses function_call 项目解码为 ToolUseBlock。"""
 
-    call_id = item.get("call_id") or item.get("id")
+    call_id = item.get("call_id")
     name = item.get("name")
     if not isinstance(call_id, str) or not call_id.strip():
         raise DecodeError("function_call is missing call_id")

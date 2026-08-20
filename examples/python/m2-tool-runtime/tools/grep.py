@@ -131,7 +131,10 @@ class GrepTool:
         # 与 Rust 一样先递归枚举，再使用共享的 glob 子集匹配相对路径。
         for path in sorted(root.rglob("*")):
             if path.is_file():
-                self.workspace.resolve(str(path))
+                try:
+                    self.workspace.resolve(str(path))
+                except WorkspaceError:
+                    continue
                 relative = path.resolve().relative_to(root).as_posix()
                 if glob_matches(glob_pat, relative):
                     results.append(path)

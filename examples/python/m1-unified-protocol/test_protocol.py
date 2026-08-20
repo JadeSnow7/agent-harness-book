@@ -318,6 +318,15 @@ class DecodeTests(unittest.TestCase):
         cases = [
             ({"type": "function_call", "name": "echo", "arguments": "{}"}, "call_id"),
             (
+                {
+                    "type": "function_call",
+                    "id": "fc_1",
+                    "name": "echo",
+                    "arguments": "{}",
+                },
+                "call_id",
+            ),
+            (
                 {"type": "function_call", "call_id": "call_1", "arguments": "{}"},
                 "name",
             ),
@@ -412,6 +421,7 @@ class ChatOnceTests(unittest.TestCase):
         )
         expected = encode_request(build_model_request("gpt-test", "Hello"))
         self.assertEqual(transport.last_request["payload"], expected)
+        self.assertEqual(transport.last_request["timeout_s"], self.config.timeout_s)
 
     def test_complete_sends_the_exact_unified_request(self):
         transport = FakeTransport(

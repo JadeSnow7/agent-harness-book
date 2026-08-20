@@ -10,7 +10,7 @@ import json
 import math
 import os
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Mapping, Protocol
 
 
@@ -45,7 +45,7 @@ class ResponseFormatError(AppError):
 class Config:
     """一次模型调用所需的配置；API Key 只在内存中传递。"""
 
-    api_key: str
+    api_key: str = field(repr=False)
     model: str
     base_url: str
     timeout_s: float

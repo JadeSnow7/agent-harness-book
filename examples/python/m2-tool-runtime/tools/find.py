@@ -55,7 +55,10 @@ class FindTool:
         for path in sorted(base.rglob("*")):
             if not path.is_file() and not path.is_dir():
                 continue
-            self.workspace.resolve(str(path))
+            try:
+                self.workspace.resolve(str(path))
+            except WorkspaceError:
+                continue
             base_rel = path.resolve().relative_to(base).as_posix()
             if not glob_matches(pattern, base_rel):
                 continue

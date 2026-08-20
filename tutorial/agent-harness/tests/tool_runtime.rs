@@ -230,6 +230,35 @@ fn read_truncates_at_default_max_bytes() {
     let _ = std::fs::remove_dir_all(root);
 }
 
+#[test]
+fn read_with_offset_past_eof_returns_empty_content_instead_of_panicking() {
+    let (root, workspace) = temp_workspace();
+    let mut tool = ReadTool::new(workspace);
+
+    let output = tool
+        .execute(&json!({"path": "hello.txt", "offset": 100}))
+        .unwrap();
+    assert_eq!(output["content"], json!(""));
+    assert_eq!(output["line_count"], json!(0));
+    assert_eq!(output["truncated"], json!(false));
+
+    let _ = std::fs::remove_dir_all(root);
+}
+
+#[test]
+fn read_with_offset_near_u64_max_does_not_overflow() {
+    let (root, workspace) = temp_workspace();
+    let mut tool = ReadTool::new(workspace);
+
+    let output = tool
+        .execute(&json!({"path": "hello.txt", "offset": u64::MAX - 1}))
+        .unwrap();
+    assert_eq!(output["content"], json!(""));
+    assert_eq!(output["line_count"], json!(0));
+
+    let _ = std::fs::remove_dir_all(root);
+}
+
 // --- one-step closure: continuous success case ------------------------------
 
 #[test]
