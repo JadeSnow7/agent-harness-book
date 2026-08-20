@@ -39,3 +39,5 @@
 
 - [附录 A：实现索引与验证命令](implementations.md)
 - [附录 B：实验：M2 Tool Runtime 七工具](labs/m2-tool-runtime.md)
+- [附录 C：AI Coding 项目审计 Prompt 模板](appendix-ai-coding-prompt.md)
+- [附录 D：Harness 产品案例横向对比](appendix-harness-comparison.md)

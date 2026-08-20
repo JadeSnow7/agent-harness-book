@@ -1,0 +1,61 @@
+flowchart LR
+    U[User Goal]
+    H[Harness<br/>Context · Policy · Runtime · State / Events]
+    M[Model<br/>text or Candidate Action]
+    P{Policy<br/>is this action allowed?}
+    R[Runtime<br/>validated execution]
+    E[Environment<br/>files · processes · network · permissions]
+    O[Observation<br/>environment response]
+    V[Validation / Evidence<br/>state checks and reviewable material]
+    S[Human Review / Stop<br/>goal · evidence · risk · budget]
+    C[Context]
+
+    U --> H
+    H --> C
+    C --> M
+    M -->|candidate only| H
+    H --> P
+    P -->|allow| R
+    P -->|deny / ask| S
+    R --> E
+    E --> O
+    O --> H
+    H --> V
+    V --> S
+    S -->|continue with new context| H
+
+    subgraph LOGIC[逻辑目标架构，不代表全部已实现]
+      H
+      C
+      P
+      R
+      V
+    end
+
+    subgraph NOW[当前仓库：已实现并验证的 M0–M2]
+      M0[M0 model call]
+      M1[M1 unified protocol]
+      M2[M2 tool runtime / one step]
+    end
+    M0 -. evidence .-> M
+    M1 -. evidence .-> H
+    M2 -. evidence .-> R
+
+    subgraph P0REF[P0 组合参考：确定性切片，不是逐章完成]
+      P0[P0 reference slice<br/>in-process · deterministic]
+    end
+    P0 -. composition reference .-> H
+
+    subgraph FUTURE[M3–M10：尚未逐章实现的路线]
+      F[M3 loop → M10 extensions]
+    end
+    F -. route only .-> H
+
+    classDef logic fill:#eef6ff,stroke:#4779a8,color:#17324d
+    classDef now fill:#edf8ed,stroke:#4d8b4d,color:#214d21
+    classDef ref fill:#fff7e6,stroke:#b07a18,color:#5d4100
+    classDef future fill:#f2f2f2,stroke:#777,color:#444,stroke-dasharray: 5 5
+    class U,H,M,P,R,E,O,V,S,C logic
+    class M0,M1,M2 now
+    class P0 ref
+    class F future

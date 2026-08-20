@@ -1,0 +1,28 @@
+flowchart TD
+    A[只读检查当前仓库<br/>pwd · git status · 相关文档] --> B[定义本章目标与验收条件]
+    B --> C[AI 起草编码 Prompt]
+    C --> D{人工门禁 1<br/>Prompt 是否批准?}
+    D -->|否：修改 Prompt| C
+    D -->|是| E[实施最小代码 / 文档增量]
+    E --> F[运行测试、lint、类型检查<br/>或文档构建]
+    F --> G[检查 diff、退出码和环境状态]
+    G --> H[生成证据与完成报告]
+    H --> I{人工门禁 2<br/>审阅代码、验证证据和章节结果}
+    I -->|接受| J[接受本章增量]
+    I -->|修正| C
+    I -->|回退| K[回退本轮增量并记录原因]
+    I -->|进入下一章| L[下一章目标与验收]
+    H -. AI 的“已经完成”不是验收依据 .-> I
+    J --> L
+
+    subgraph HUMAN[人工判断]
+      D
+      I
+    end
+
+    classDef gate fill:#fff0f0,stroke:#b34d4d,stroke-width:2px,color:#5c1f1f
+    classDef check fill:#eef6ff,stroke:#4779a8,color:#17324d
+    classDef result fill:#edf8ed,stroke:#4d8b4d,color:#214d21
+    class D,I gate
+    class A,B,F,G,H check
+    class J,K,L result
