@@ -190,3 +190,15 @@ python3.11 examples/python/m0-model-call/chat_once.py
 | Agent Loop 与环境执行 | 尚未由本章实现 |
 
 当前成熟度是 **Prototype**：它足以作为后续协议和工具章节的输入，也有失败路径测试；但 Provider 兼容性、重试语义和运行观测还没有形成稳定承诺。这里有意留下的技术债是只支持一次、非流式、边界清楚的请求。下一章的必要性正由这个限制产生：如果上层继续直接读取 Provider JSON，第二个 Provider 一加入，解析逻辑就会扩散到整个 Loop。
+
+## 2.8 累计工程从这里落地
+
+`examples/rust/m0-model-call` 是本章的对照实现，但它不会随后续章节继续长大。仓库另外维护一个逐章累积的 crate——`tutorial/agent-harness/`——把每一章新增的能力叠加在同一份代码上，读者可以在一处看到 Harness 从一次调用长成什么样。
+
+本章交给这个 crate 的，只是 `config`、`transport`、`model_call` 三个模块：读配置、发一次非流式请求、按顺序提取 `output_text`。它不认识 `Message`、内容块或工具声明——那些概念要到下一章讨论统一协议时才有必要出现。提前放进来，读者会分不清"这一章真正解决了什么问题"。
+
+```bash
+cargo test -p tutorial-agent-harness --offline
+```
+
+验证方式和 2.5 节一样：Fake Transport 离线跑完整套正常与失败路径，不联网、不读真实 Key。下一章会在同一个 crate 里加统一协议层，把这里的 Provider 专属 JSON 换成可以描述工具候选的结构；这一章的模块划分之所以按配置、传输、解析三层分开，就是为了让那次替换只发生在传输和解析之间，不必推翻配置层。
