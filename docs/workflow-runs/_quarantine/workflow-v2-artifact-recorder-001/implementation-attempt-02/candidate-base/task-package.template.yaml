@@ -1,0 +1,7 @@
+protocol_version: "2"
+task_id: "{{task_id}}"
+artifact_root: "docs/workflow-runs/{{task_id}}"
+sequence: 0
+attempt: 1
+artifact_key: task-package
+verification: pending

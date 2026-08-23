@@ -1,0 +1,49 @@
+protocol_version: "1"
+task_id: "{{task_id}}"
+chapter: "{{chapter}}"
+role: "{{role}}"
+status: "passed | failed | changes_required | needs_user_input | blocked"
+summary: "{{summary}}"
+
+coordinates:
+  start_state: "{{start_state}}"
+  target_state: "{{target_state}}"
+  start_state_verified: false
+  resulting_commit: null
+
+scope:
+  planned_files: []
+  actual_files: []
+  unexpected_files: []
+  scope_expansion: false
+
+commands:
+  - command: "{{command}}"
+    exit_code: null
+    result: "passed | failed | not_run"
+    network_used: false
+    notes: null
+
+assessment:
+  understanding: []
+  disagreements: []
+  risks: []
+  unverified_items: []
+  known_limitations: []
+
+handoff:
+  next_action: "{{next_action}}"
+  next_role: "{{next_role}}"
+  requires_user_confirmation: true
+  requested_confirmation: "{{requested_confirmation}}"
+
+artifact:
+  root: "docs/workflow-runs/{{task_id}}"
+  sequence: 1
+  attempt: 1
+  artifact_key: "{{artifact_key}}"
+  raw_source: {provenance: "platform_raw_export", reference: "{{source_reference}}", expected_byte_length: 0, expected_sha256: "{{sha256}}"}
+  manifest_path: "{{manifest_path}}"
+  recorded: false
+  controller_verified: false
+  bootstrap: false

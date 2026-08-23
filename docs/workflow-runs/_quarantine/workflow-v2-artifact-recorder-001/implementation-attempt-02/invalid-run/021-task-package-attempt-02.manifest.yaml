@@ -1,0 +1,23 @@
+{
+  "artifact_key": "task-package",
+  "attempt": 2,
+  "byte_length": 57,
+  "chapter": "meta",
+  "expected_byte_length": 57,
+  "expected_sha256": "a8dbaddba83ffb60c1f0ff71d8a236fb285bcdab118fc7eb46efa4fac401e181",
+  "historical": false,
+  "identity_source": "external_descriptor",
+  "media_type": "text/plain",
+  "payload_extension": "yaml",
+  "recorded_by": "bootstrap-coder",
+  "revision_of": "013-task-package-attempt-01.manifest.yaml",
+  "role": "task_package",
+  "sequence": 21,
+  "sha256": "a8dbaddba83ffb60c1f0ff71d8a236fb285bcdab118fc7eb46efa4fac401e181",
+  "source_path": "/tmp/workflow-v2-attempt04-bundle/source-21",
+  "source_provenance": "platform_raw_export",
+  "source_reference": "bootstrap handoff",
+  "status": "approved",
+  "target_path": "021-task-package-attempt-02.payload.yaml",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

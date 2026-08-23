@@ -1,0 +1,368 @@
+[
+  {
+    "byte_length": 333,
+    "original_path": "base/README.md",
+    "quarantine_path": "candidate-base/README.md",
+    "sha256": "701a78cd32486e2f5d16adffebd486ec507d2048daafa2777761d3f772d8cec2"
+  },
+  {
+    "byte_length": 161,
+    "original_path": "base/agent-result.template.yaml",
+    "quarantine_path": "candidate-base/agent-result.template.yaml",
+    "sha256": "e6bf030c654754c67587ae777e01ddff448c1c245cd9846e1c363e7dacc19ea6"
+  },
+  {
+    "byte_length": 207,
+    "original_path": "base/artifact-input.template.json",
+    "quarantine_path": "candidate-base/artifact-input.template.json",
+    "sha256": "e8c2277f5be5e8fd176a6d48f9639a2eacf61536fd080c77504e1a775a241742"
+  },
+  {
+    "byte_length": 199,
+    "original_path": "base/artifact-recorder.md",
+    "quarantine_path": "candidate-base/artifact-recorder.md",
+    "sha256": "b553979ce3510b1ee8f8ac69ae093f380a40d6c39109ec74f2730898bf3718ba"
+  },
+  {
+    "byte_length": 2184,
+    "original_path": "base/artifact_recorder.py",
+    "quarantine_path": "candidate-base/artifact_recorder.py",
+    "sha256": "b7ab5d7f7ab5470a899138c7181fbfd64173636190ebdda4afff3b42191b8b7a"
+  },
+  {
+    "byte_length": 77,
+    "original_path": "base/commit-audit.md",
+    "quarantine_path": "candidate-base/commit-audit.md",
+    "sha256": "da8a78b3e4c0ac71db7a65a79cc9d70f56958216561d95041121500a28ad122e"
+  },
+  {
+    "byte_length": 88,
+    "original_path": "base/commit.md",
+    "quarantine_path": "candidate-base/commit.md",
+    "sha256": "286ffb6884783333704d6328c9849a05ce546e8e7afc6328e5b56d54c75100eb"
+  },
+  {
+    "byte_length": 279,
+    "original_path": "base/controller.md",
+    "quarantine_path": "candidate-base/controller.md",
+    "sha256": "a469f1efd781ae1d96c5a9e3fa5a2944e5604ab034e3a3c81ab5fe2d08486aae"
+  },
+  {
+    "byte_length": 131,
+    "original_path": "base/implementation.md",
+    "quarantine_path": "candidate-base/implementation.md",
+    "sha256": "80afffdd1ce35161358101fb2b1c1c73be8f0aa225bf8145ca5e08143d373ae0"
+  },
+  {
+    "byte_length": 269,
+    "original_path": "base/manual-handoff.md",
+    "quarantine_path": "candidate-base/manual-handoff.md",
+    "sha256": "7bdd9d751e8119d1fc893882fad62e71dd844ffa10767ce227a8f8a8be830b66"
+  },
+  {
+    "byte_length": 115,
+    "original_path": "base/planning.md",
+    "quarantine_path": "candidate-base/planning.md",
+    "sha256": "388c04fd4f1d0fba0af83051d638e0773a1b6069008cb8b4a4f9888c60572ec0"
+  },
+  {
+    "byte_length": 108,
+    "original_path": "base/post-implementation-audit.md",
+    "quarantine_path": "candidate-base/post-implementation-audit.md",
+    "sha256": "9ad9b86dc5edf65c42e175bca3f9895c50e73008c6e7bb103ed12b815d85996e"
+  },
+  {
+    "byte_length": 452,
+    "original_path": "base/reader-ai-coding-workflow-v2.md",
+    "quarantine_path": "candidate-base/reader-ai-coding-workflow-v2.md",
+    "sha256": "2ac96659989b3da1e7ee722023d65b93da8cc4aade7ee64d1432df49b4b00e8e"
+  },
+  {
+    "byte_length": 107,
+    "original_path": "base/summary.md",
+    "quarantine_path": "candidate-base/summary.md",
+    "sha256": "63394989284f36cf53dfabb7b8b6ecbb4bfbdb6d1237a885d1fb8da98fa2fd09"
+  },
+  {
+    "byte_length": 96,
+    "original_path": "base/task-analysis.md",
+    "quarantine_path": "candidate-base/task-analysis.md",
+    "sha256": "b5be200a3761c636f8c2ff31fd0f60990b78b875dc16e397f6f7785443ffd2d9"
+  },
+  {
+    "byte_length": 165,
+    "original_path": "base/task-package.template.yaml",
+    "quarantine_path": "candidate-base/task-package.template.yaml",
+    "sha256": "cbc0120f8448bf83aa4bfc9e9bbc2946b8786cc970ce346585a268d380184754"
+  },
+  {
+    "byte_length": 142,
+    "original_path": "base/test_artifact_recorder.py",
+    "quarantine_path": "candidate-base/test_artifact_recorder.py",
+    "sha256": "831a96b0cb9f704e9d74f999476cf48eedfb3fb91d6467a113c12172d5c60395"
+  },
+  {
+    "byte_length": 885,
+    "original_path": "run/001-task-analysis-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/001-task-analysis-attempt-01.manifest.yaml",
+    "sha256": "810569d420bd8e1c56de7d157d94ccb4fcfb5484901f9ac11b52f2d34ee602c9"
+  },
+  {
+    "byte_length": 15062,
+    "original_path": "run/001-task-analysis-attempt-01.payload.md",
+    "quarantine_path": "invalid-run/001-task-analysis-attempt-01.payload.md",
+    "sha256": "4ed94ed64ce557cebf8428a3405155e0ae5162d13079e6ec75655bf678eed833"
+  },
+  {
+    "byte_length": 903,
+    "original_path": "run/002-controller-state-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/002-controller-state-attempt-01.manifest.yaml",
+    "sha256": "039975e316b041d97dd759baad8cd149bf4a60a6bb727c32f16dd7ed9739e143"
+  },
+  {
+    "byte_length": 0,
+    "original_path": "run/002-controller-state-attempt-01.payload.md",
+    "quarantine_path": "invalid-run/002-controller-state-attempt-01.payload.md",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "byte_length": 898,
+    "original_path": "run/003-user-gate-requirement-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/003-user-gate-requirement-attempt-01.manifest.yaml",
+    "sha256": "9ec3749382e1eb814e3fd778f76dc9c795803de191aed98e1df9cf611f8ee661"
+  },
+  {
+    "byte_length": 13,
+    "original_path": "run/003-user-gate-requirement-attempt-01.payload.txt",
+    "quarantine_path": "invalid-run/003-user-gate-requirement-attempt-01.payload.txt",
+    "sha256": "6440d18957e3f79c7c0516563c4b2d98ba250200902e26fa263caaee983beef0"
+  },
+  {
+    "byte_length": 886,
+    "original_path": "run/004-controller-state-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/004-controller-state-attempt-01.manifest.yaml",
+    "sha256": "120b9552091b28fa8d3fc306e80b69fc4ba676fa60121714fd934cdb417aa7e8"
+  },
+  {
+    "byte_length": 286,
+    "original_path": "run/004-controller-state-attempt-01.payload.yaml",
+    "quarantine_path": "invalid-run/004-controller-state-attempt-01.payload.yaml",
+    "sha256": "0eb9da36378c3f2421a34e86345586efa45a448a6412c94bc36772cafe732379"
+  },
+  {
+    "byte_length": 860,
+    "original_path": "run/005-planning-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/005-planning-attempt-01.manifest.yaml",
+    "sha256": "cbce413b41da2cc5f7ed8ef23645dcfc62cc291098d2d44c4f8f19569b46ed8e"
+  },
+  {
+    "byte_length": 45880,
+    "original_path": "run/005-planning-attempt-01.payload.md",
+    "quarantine_path": "invalid-run/005-planning-attempt-01.payload.md",
+    "sha256": "ddbf2848568e45f87d6efeb0d464ed008b8caf3db3fba3678e839fbdcdcb32d5"
+  },
+  {
+    "byte_length": 1247,
+    "original_path": "run/006-controller-correction-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/006-controller-correction-attempt-01.manifest.yaml",
+    "sha256": "a4b375573cec9363b95e5802863b5c0d81647339d16f9ccfa488206a5e12c824"
+  },
+  {
+    "byte_length": 1586,
+    "original_path": "run/006-controller-correction-attempt-01.payload.json",
+    "quarantine_path": "invalid-run/006-controller-correction-attempt-01.payload.json",
+    "sha256": "a5b52fccfb2f81b0b678da0eb03fb25a1b59bfb6cbe5d027203b6745de800877"
+  },
+  {
+    "byte_length": 895,
+    "original_path": "run/007-planning-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/007-planning-attempt-02.manifest.yaml",
+    "sha256": "7e64097d8a546d53158985da34a02bd88079f079867cb34c155e1cd09b280c6c"
+  },
+  {
+    "byte_length": 43159,
+    "original_path": "run/007-planning-attempt-02.payload.md",
+    "quarantine_path": "invalid-run/007-planning-attempt-02.payload.md",
+    "sha256": "eed71f83e0461d232369c69bd4717bc3bc5d5df0fbe9d2c8a8d8ca60d86c617e"
+  },
+  {
+    "byte_length": 1247,
+    "original_path": "run/008-controller-correction-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/008-controller-correction-attempt-02.manifest.yaml",
+    "sha256": "9eebda0ec603f2cfd3786281fbe2db9aa140dac19bef2444aa9d41514bc81d1b"
+  },
+  {
+    "byte_length": 2738,
+    "original_path": "run/008-controller-correction-attempt-02.payload.json",
+    "quarantine_path": "invalid-run/008-controller-correction-attempt-02.payload.json",
+    "sha256": "c42d10125589ec33498bac37aa2268884f973911267eb47c45ea4645aa680f88"
+  },
+  {
+    "byte_length": 895,
+    "original_path": "run/009-planning-attempt-03.manifest.yaml",
+    "quarantine_path": "invalid-run/009-planning-attempt-03.manifest.yaml",
+    "sha256": "ece339528ca7f0a20fc0baabd6e86bfacf9e4dd9cd38cda2f3eb4dc0615f4811"
+  },
+  {
+    "byte_length": 45198,
+    "original_path": "run/009-planning-attempt-03.payload.md",
+    "quarantine_path": "invalid-run/009-planning-attempt-03.payload.md",
+    "sha256": "4351060abe19bae655670916c862cbdc8388bd1e6677729e4948917c21cfb146"
+  },
+  {
+    "byte_length": 908,
+    "original_path": "run/010-controller-state-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/010-controller-state-attempt-01.manifest.yaml",
+    "sha256": "b104848518615b4cd21efecc3bb3e3b8a8a5051394a39e324703a288905c875f"
+  },
+  {
+    "byte_length": 0,
+    "original_path": "run/010-controller-state-attempt-01.payload.yaml",
+    "quarantine_path": "invalid-run/010-controller-state-attempt-01.payload.yaml",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "byte_length": 908,
+    "original_path": "run/011-user-gate-implementation-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/011-user-gate-implementation-attempt-01.manifest.yaml",
+    "sha256": "8bf1441ffafb4e95633ec9d11003995e671a741c0210b46c3198724e89f62911"
+  },
+  {
+    "byte_length": 13,
+    "original_path": "run/011-user-gate-implementation-attempt-01.payload.txt",
+    "quarantine_path": "invalid-run/011-user-gate-implementation-attempt-01.payload.txt",
+    "sha256": "f38b0d4084b363d510b12b2a9da12078692fe6289de46bce74c75d70ab08a457"
+  },
+  {
+    "byte_length": 877,
+    "original_path": "run/012-approved-prompt-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/012-approved-prompt-attempt-01.manifest.yaml",
+    "sha256": "221b70c10c0f5ff09f9d776fa08d44e2d4ce7bbc21bf438508d49642a3cba5ba"
+  },
+  {
+    "byte_length": 0,
+    "original_path": "run/012-approved-prompt-attempt-01.payload.md",
+    "quarantine_path": "invalid-run/012-approved-prompt-attempt-01.payload.md",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "byte_length": 781,
+    "original_path": "run/013-task-package-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/013-task-package-attempt-01.manifest.yaml",
+    "sha256": "c2cd08f6e22439581bacd616417c1a559ae627bd2ef95d1126ea3d557273d5bd"
+  },
+  {
+    "byte_length": 56,
+    "original_path": "run/013-task-package-attempt-01.payload.yaml",
+    "quarantine_path": "invalid-run/013-task-package-attempt-01.payload.yaml",
+    "sha256": "a7651cc085a3dbf25deb3d36e82ee3603419134e92138e9adeffa8e252f48ef2"
+  },
+  {
+    "byte_length": 801,
+    "original_path": "run/014-controller-state-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/014-controller-state-attempt-01.manifest.yaml",
+    "sha256": "af6fa42efa910e965e4699f755a03dea32e0f489f83b2039250be23d178cee2c"
+  },
+  {
+    "byte_length": 111,
+    "original_path": "run/014-controller-state-attempt-01.payload.yaml",
+    "quarantine_path": "invalid-run/014-controller-state-attempt-01.payload.yaml",
+    "sha256": "dcb43edbdab0de92016e3c85ea4316139bb6801286b6b81fa2b7a8ddfe0ba2b4"
+  },
+  {
+    "byte_length": 905,
+    "original_path": "run/015-implementation-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/015-implementation-attempt-01.manifest.yaml",
+    "sha256": "74924405d98f682db3dc31c4fde369735e19e7c5ca5416affaee637c238f4ef1"
+  },
+  {
+    "byte_length": 1305,
+    "original_path": "run/015-implementation-attempt-01.payload.md",
+    "quarantine_path": "invalid-run/015-implementation-attempt-01.payload.md",
+    "sha256": "c9700a6ed5f9a1785799ff96beaa35eef45b97e1f7910ab2ebf27e078b56d5f9"
+  },
+  {
+    "byte_length": 888,
+    "original_path": "run/016-controller-state-attempt-01.manifest.yaml",
+    "quarantine_path": "invalid-run/016-controller-state-attempt-01.manifest.yaml",
+    "sha256": "ac497c5c7ce7bff4b39f2d510a8a77f1b039fcb052f82879f4bdac4968a0ebfe"
+  },
+  {
+    "byte_length": 649,
+    "original_path": "run/016-controller-state-attempt-01.payload.yaml",
+    "quarantine_path": "invalid-run/016-controller-state-attempt-01.payload.yaml",
+    "sha256": "f2d690a299f90c5f69e99f5942ecc2c462b501ea4d7596ac63683c7a390b0d9a"
+  },
+  {
+    "byte_length": 889,
+    "original_path": "run/017-planning-attempt-04.manifest.yaml",
+    "quarantine_path": "invalid-run/017-planning-attempt-04.manifest.yaml",
+    "sha256": "e0bfd5daec98051f298e7a189e200da6a10a4bb331e66472b6546fc5d3b09c03"
+  },
+  {
+    "byte_length": 0,
+    "original_path": "run/017-planning-attempt-04.payload.md",
+    "quarantine_path": "invalid-run/017-planning-attempt-04.payload.md",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "byte_length": 903,
+    "original_path": "run/018-controller-state-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/018-controller-state-attempt-02.manifest.yaml",
+    "sha256": "2e034a1f0623163adfa643e38771e1d855dcc89f2c67a706d2cea5f829375db8"
+  },
+  {
+    "byte_length": 0,
+    "original_path": "run/018-controller-state-attempt-02.payload.yaml",
+    "quarantine_path": "invalid-run/018-controller-state-attempt-02.payload.yaml",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "byte_length": 908,
+    "original_path": "run/019-user-gate-implementation-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/019-user-gate-implementation-attempt-02.manifest.yaml",
+    "sha256": "a4e95eb79012613cde788618f1ba543f30563bcf5fbdb7aa30fa9f43b423d0cf"
+  },
+  {
+    "byte_length": 74,
+    "original_path": "run/019-user-gate-implementation-attempt-02.payload.txt",
+    "quarantine_path": "invalid-run/019-user-gate-implementation-attempt-02.payload.txt",
+    "sha256": "5fe20feb01db9cbf2af019813d6958b0c6f4210afec8192dd6510503b19d9dbf"
+  },
+  {
+    "byte_length": 877,
+    "original_path": "run/020-approved-prompt-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/020-approved-prompt-attempt-02.manifest.yaml",
+    "sha256": "b59a8669f56f21905c897b806237e14e6c0327cc3d64a9e3d0a23fbcb3e136b0"
+  },
+  {
+    "byte_length": 0,
+    "original_path": "run/020-approved-prompt-attempt-02.payload.md",
+    "quarantine_path": "invalid-run/020-approved-prompt-attempt-02.payload.md",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "byte_length": 852,
+    "original_path": "run/021-task-package-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/021-task-package-attempt-02.manifest.yaml",
+    "sha256": "5661d7f4886573724f1b06eb2d34350491d54b54a5f5872e4acac21ea20c7210"
+  },
+  {
+    "byte_length": 57,
+    "original_path": "run/021-task-package-attempt-02.payload.yaml",
+    "quarantine_path": "invalid-run/021-task-package-attempt-02.payload.yaml",
+    "sha256": "a8dbaddba83ffb60c1f0ff71d8a236fb285bcdab118fc7eb46efa4fac401e181"
+  },
+  {
+    "byte_length": 889,
+    "original_path": "run/022-controller-state-attempt-02.manifest.yaml",
+    "quarantine_path": "invalid-run/022-controller-state-attempt-02.manifest.yaml",
+    "sha256": "5905f29070e2d39bb8cd1d620f8c04c61dda3089a728992fe90bd576b5e3adf4"
+  },
+  {
+    "byte_length": 111,
+    "original_path": "run/022-controller-state-attempt-02.payload.yaml",
+    "quarantine_path": "invalid-run/022-controller-state-attempt-02.payload.yaml",
+    "sha256": "dcb43edbdab0de92016e3c85ea4316139bb6801286b6b81fa2b7a8ddfe0ba2b4"
+  }
+]

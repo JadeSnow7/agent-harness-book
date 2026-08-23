@@ -1,0 +1,23 @@
+{
+  "artifact_key": "planning",
+  "attempt": 4,
+  "byte_length": 0,
+  "chapter": "meta",
+  "expected_byte_length": 0,
+  "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "historical": true,
+  "identity_source": "external_descriptor",
+  "media_type": "text/plain",
+  "payload_extension": "md",
+  "recorded_by": "bootstrap-coder",
+  "revision_of": "009-planning-attempt-03.manifest.yaml",
+  "role": "planning",
+  "sequence": 17,
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "source_path": "/tmp/workflow-v2-attempt04-bundle/source-17",
+  "source_provenance": "platform_raw_export",
+  "source_reference": "rollout-2026-08-18T15-11-38-01a013b6-2234-7b23-8baa-8235fd79e559.jsonl:line-724",
+  "status": "passed",
+  "target_path": "017-planning-attempt-04.payload.md",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

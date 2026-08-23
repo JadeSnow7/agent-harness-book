@@ -1,0 +1,22 @@
+{
+  "artifact_key": "controller-state",
+  "attempt": 1,
+  "byte_length": 111,
+  "chapter": "meta",
+  "expected_byte_length": 111,
+  "expected_sha256": "dcb43edbdab0de92016e3c85ea4316139bb6801286b6b81fa2b7a8ddfe0ba2b4",
+  "historical": false,
+  "identity_source": "external_descriptor",
+  "payload_extension": "yaml",
+  "recorded_by": "bootstrap-coder",
+  "revision_of": null,
+  "role": "controller_state",
+  "sequence": 14,
+  "sha256": "dcb43edbdab0de92016e3c85ea4316139bb6801286b6b81fa2b7a8ddfe0ba2b4",
+  "source_path": "/tmp/workflow-v2-attempt04-bundle/source-14",
+  "source_provenance": "bootstrap_handoff",
+  "source_reference": "bootstrap handoff",
+  "status": "implementation",
+  "target_path": "014-controller-state-attempt-01.payload.yaml",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

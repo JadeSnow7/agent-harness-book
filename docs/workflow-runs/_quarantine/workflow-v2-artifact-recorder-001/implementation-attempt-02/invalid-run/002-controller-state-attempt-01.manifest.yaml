@@ -1,0 +1,23 @@
+{
+  "artifact_key": "controller-state",
+  "attempt": 1,
+  "byte_length": 0,
+  "chapter": "meta",
+  "expected_byte_length": 0,
+  "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "historical": true,
+  "identity_source": "external_descriptor",
+  "media_type": "text/plain",
+  "payload_extension": "md",
+  "recorded_by": "bootstrap-coder",
+  "revision_of": null,
+  "role": "controller_state",
+  "sequence": 2,
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "source_path": "/tmp/workflow-v2-attempt04-bundle/source-2",
+  "source_provenance": "platform_raw_export",
+  "source_reference": "rollout-2026-08-18T13-15-39-01a0134b-f09e-75c0-b20a-7454346b5146.jsonl:line-452",
+  "status": "awaiting_requirement_confirmation",
+  "target_path": "002-controller-state-attempt-01.payload.md",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

@@ -1,0 +1,59 @@
+protocol_version: "1"
+task_id: "{{task_id}}"
+chapter: "{{chapter}}"
+user_request: "{{user_request}}"
+
+project:
+  root: "{{project_root}}"
+  start_state: "{{start_state}}"
+  target_state: "{{target_state}}"
+  previous_commit: null
+
+platform:
+  multi_agent_support: "supported | unsupported | uncertain"
+  execution_mode: "automatic_multi_agent | manual_session_handoff"
+  evidence: []
+  limitations: []
+
+model_assignment:
+  recommended_profile: "sol | luna"
+  selected_model: "{{selected_model}}"
+  selection_reason: "{{selection_reason}}"
+  complexity: "low | medium | high"
+  delegation_plan: []
+
+assets:
+  design: []
+  architecture: []
+  python: []
+  python_prototype:
+    status: "available | not_applicable | pending"
+    reason: null
+    suggested_business_logic: null
+    user_confirmation: "confirmed | pending"
+
+business_logic:
+  confirmed_requirements: []
+  disagreements: []
+  risks: []
+
+approval:
+  approved_prompt: null
+  approval_status: "pending | approved | rejected"
+  approval_evidence: null
+
+scope:
+  allowed_paths: []
+  forbidden_paths: []
+  non_goals: []
+
+validation:
+  required_commands: []
+  required_evidence: []
+  network_policy: "offline_by_default"
+  credential_policy: "no_real_credentials"
+
+workflow:
+  current_state: "initialized"
+  next_role: "task_analysis"
+  requires_user_confirmation: true

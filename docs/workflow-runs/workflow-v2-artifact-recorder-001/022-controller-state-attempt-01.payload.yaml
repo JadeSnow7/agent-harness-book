@@ -1,0 +1,4 @@
+protocol_version: "2"
+task_id: workflow-v2-artifact-recorder-001
+role: controller_state
+status: implementation

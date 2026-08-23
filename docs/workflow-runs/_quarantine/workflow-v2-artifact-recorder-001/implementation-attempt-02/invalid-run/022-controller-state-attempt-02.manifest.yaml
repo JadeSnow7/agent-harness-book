@@ -1,0 +1,23 @@
+{
+  "artifact_key": "controller-state",
+  "attempt": 2,
+  "byte_length": 111,
+  "chapter": "meta",
+  "expected_byte_length": 111,
+  "expected_sha256": "dcb43edbdab0de92016e3c85ea4316139bb6801286b6b81fa2b7a8ddfe0ba2b4",
+  "historical": false,
+  "identity_source": "external_descriptor",
+  "media_type": "text/plain",
+  "payload_extension": "yaml",
+  "recorded_by": "bootstrap-coder",
+  "revision_of": "014-controller-state-attempt-01.manifest.yaml",
+  "role": "controller_state",
+  "sequence": 22,
+  "sha256": "dcb43edbdab0de92016e3c85ea4316139bb6801286b6b81fa2b7a8ddfe0ba2b4",
+  "source_path": "/tmp/workflow-v2-attempt04-bundle/source-22",
+  "source_provenance": "platform_raw_export",
+  "source_reference": "root controller state line 814",
+  "status": "implementation",
+  "target_path": "022-controller-state-attempt-02.payload.yaml",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

@@ -1,0 +1,23 @@
+{
+  "artifact_key": "controller-state",
+  "attempt": 1,
+  "byte_length": 76,
+  "chapter": "meta",
+  "expected_byte_length": 76,
+  "expected_sha256": "50c48e4aa9d1ee514fe4b7f6e6d6aa2be175ac2995d150cedae36fedc4b1c1f0",
+  "historical": true,
+  "identity_source": "external_descriptor",
+  "manifest_format": "canonical-json-yaml",
+  "media_type": "text/plain",
+  "payload_extension": "md",
+  "recorded_by": "artifact-recorder",
+  "revision_of": null,
+  "role": "controller-state",
+  "sequence": 25,
+  "sha256": "50c48e4aa9d1ee514fe4b7f6e6d6aa2be175ac2995d150cedae36fedc4b1c1f0",
+  "source_provenance": "platform_raw_export",
+  "source_reference": "platform-session-record",
+  "status": "passed",
+  "target_path": "025-controller-state-attempt-01.payload.md",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

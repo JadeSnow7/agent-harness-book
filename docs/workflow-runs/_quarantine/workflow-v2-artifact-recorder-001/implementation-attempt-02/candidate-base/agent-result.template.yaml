@@ -1,0 +1,8 @@
+protocol_version: "2"
+task_id: "{{task_id}}"
+role: "{{role}}"
+status: "{{status}}"
+sequence: 0
+attempt: 1
+artifact_key: "{{artifact_key}}"
+verification: pending

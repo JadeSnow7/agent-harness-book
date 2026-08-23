@@ -1,0 +1,72 @@
+protocol_version: "1"
+task_id: "workflow-v2-foundation-audit-001"
+role: "foundation_audit"
+status: "passed"
+
+legacy_run:
+  run_directory: "docs/workflow-runs/workflow-v2-artifact-recorder-001"
+  quarantine_directory: "docs/workflow-runs/_quarantine/workflow-v2-artifact-recorder-001/implementation-attempt-02"
+  quarantine_boundary_verified: true
+  inventory_mismatches: []
+
+rebuild_review:
+  changed_relative_to_quarantined:
+    - "docs/prompts/workflow/v2/tools/artifact_recorder.py (2184 -> 17268 bytes)"
+    - "docs/prompts/workflow/v2/tests/test_artifact_recorder.py (142 -> 11077 bytes)"
+    - "docs/prompts/workflow/v2/README.md (333 -> 2331 bytes, before this audit's own edit)"
+    - "docs/prompts/workflow/v2/controller.md (279 -> 10574 bytes, before this audit's own edit)"
+    - "docs/prompts/workflow/v2/roles/artifact-recorder.md (199 -> 3764 bytes)"
+    - "docs/prompts/workflow/v2/roles/commit-audit.md (77 -> 3052 bytes)"
+    - "docs/prompts/workflow/v2/roles/commit.md (88 -> 3231 bytes)"
+    - "docs/prompts/workflow/v2/roles/implementation.md (131 -> 4552 bytes)"
+    - "docs/prompts/workflow/v2/roles/planning.md (115 -> 4485 bytes)"
+    - "docs/prompts/workflow/v2/roles/post-implementation-audit.md (108 -> 3726 bytes)"
+    - "docs/prompts/workflow/v2/roles/summary.md (107 -> 3026 bytes)"
+    - "docs/prompts/workflow/v2/roles/task-analysis.md (96 -> 4029 bytes)"
+    - "docs/prompts/workflow/v2/manual-handoff.md (269 -> 3433 bytes)"
+    - "docs/prompts/workflow/v2/agent-result.template.yaml (161 -> 1184 bytes)"
+    - "docs/prompts/workflow/v2/artifact-input.template.json (207 -> 884 bytes)"
+    - "docs/prompts/workflow/v2/task-package.template.yaml (165 -> 1730 bytes)"
+    - "docs/decisions/reader-ai-coding-workflow-v2.md (452 -> 8471 bytes)"
+  unchanged_relative_to_quarantined: []
+  original_defect_resolved: true
+  internal_consistency_issues:
+    - >-
+      Before this audit: controller.md, README.md and roles/artifact-recorder.md
+      all referenced an independent "Foundation Audit" gate required to unblock
+      Rebuild B, but no roles/foundation-audit.md existed and the tool's ROLES
+      allowlist did not accept "foundation-audit". This was found and fixed as
+      part of this same audit cycle (roles/foundation-audit.md added; controller.md
+      model-selection table, state machine and legacy-boundary section updated;
+      README.md role list and legacy-migration paragraph updated; ROLES allowlist
+      in artifact_recorder.py extended) rather than silently accepted.
+  referenced_but_undefined_concepts:
+    - "Foundation Audit role (resolved during this audit, see internal_consistency_issues)"
+
+verification:
+  commands_re_run:
+    - "python3 -c 'independent inventory.json sha256/byte_length re-check over all 61 entries in the quarantine directory'"
+    - "find (quarantine dir) -type f ! -name inventory.json | wc -l  # cross-checked against inventory entry count; the one extra file is the quarantine's own explanatory README.md, not an uninventoried quarantined asset"
+    - "python3 -m unittest docs.prompts.workflow.v2.tests.test_artifact_recorder -v"
+    - "python3 -m unittest docs.prompts.workflow.v2.tests.test_artifact_recorder -v  # re-run after adding foundation-audit to ROLES, to confirm no regression"
+  raw_results:
+    - "inventory re-hash: 61/61 entries match recorded sha256 and byte_length; 0 mismatches"
+    - "quarantine directory file count: 62 files on disk vs 61 inventory entries; the delta is quarantine/.../README.md (quarantine's own note, not a quarantined original asset) -- expected and benign"
+    - "test_artifact_recorder.py: Ran 11 tests in 1.263s, OK (before ROLES edit)"
+    - "test_artifact_recorder.py: Ran 11 tests in 1.121s, OK (after adding foundation-audit to ROLES)"
+    - "exit-code constants OK,INPUT,INTEGRITY,SECURITY = 0,2,3,4 in artifact_recorder.py match README's documented '2 input, 3 integrity, 4 security'"
+    - "CLI subcommands inspect/legacy-inspect/record/verify in artifact_recorder.py match README's documented command list"
+    - "roles/ directory on disk (9 files after this audit's addition) matches README's 'Roles:' line exactly"
+  unverified_claims: []
+
+decision:
+  audit_result: "passed"
+  unblocks_rebuild_b: true
+  new_task_id_required: true
+  suggested_repair_scope: []
+
+requires_user_confirmation: true
+requested_confirmation: >-
+  请确认 Foundation Audit 结论（passed，解除 Rebuild B 冻结）；本记录使用全新
+  task_id workflow-v2-foundation-audit-001、sequence 1，未写回被冻结的
+  workflow-v2-artifact-recorder-001 legacy run 目录。

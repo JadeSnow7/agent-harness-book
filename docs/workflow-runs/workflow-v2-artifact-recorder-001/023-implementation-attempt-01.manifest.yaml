@@ -1,0 +1,23 @@
+{
+  "artifact_key": "implementation",
+  "attempt": 1,
+  "byte_length": 82,
+  "chapter": "meta",
+  "expected_byte_length": 82,
+  "expected_sha256": "97f34f09d6ae1457ef522bc26c4f897eaf692e25ebe6b966f299268c048fc88a",
+  "historical": true,
+  "identity_source": "external_descriptor",
+  "manifest_format": "canonical-json-yaml",
+  "media_type": "text/plain",
+  "payload_extension": "md",
+  "recorded_by": "artifact-recorder",
+  "revision_of": null,
+  "role": "implementation",
+  "sequence": 23,
+  "sha256": "97f34f09d6ae1457ef522bc26c4f897eaf692e25ebe6b966f299268c048fc88a",
+  "source_provenance": "platform_raw_export",
+  "source_reference": "platform-session-record",
+  "status": "passed",
+  "target_path": "023-implementation-attempt-01.payload.md",
+  "task_id": "workflow-v2-artifact-recorder-001"
+}

@@ -1,0 +1,16 @@
+```yaml
+protocol_version: "2"
+task_id: "workflow-v2-artifact-recorder-001"
+role: "controller_state"
+attempt: 2
+status: "implementation"
+approval_status: "approved_with_encrypted_correction_exception"
+approval_text: "接受 encrypted correction 例外，并批准 planning attempt-04 实施"
+planning_attempt: 4
+implementation_attempt: 2
+artifact_target_count: 61
+ch3_status: "frozen"
+git_write_authorized: false
+```
+
+窄例外已获得精确批准。现在恢复同一唯一 coder；它将把本条真实派发状态、您的批准原文、attempt-04 Prompt 与此前 zero-write 阻塞结果一并纳入 bootstrap，然后才开始白名单实施。
