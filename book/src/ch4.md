@@ -1,6 +1,6 @@
 # 第 4 章：从一次工具候选到一步闭环
 
-**状态：已实现并验证。** 第 3 章的 `ToolUseBlock` 仍然只是数据。本章让 Runtime 校验并执行一个 `read`，再把结果按原 `call_id` 送回模型。
+**状态：已实现并验证。** 第 3 章的 `ToolUseBlock` 仍然只是数据。本章让 Runtime 校验并执行一个 `read`，再把结果按原 `call_id` 送回模型；4.5 节额外用 `write` 演示一次可见的副作用，并说明它为什么是教学捷径而非推荐设计。
 
 本章刻意只完成固定两次模型调用的一步闭环：第一次提出一个工具候选，Runtime 执行一次，第二次返回最终文本。它没有循环、预算、重试或停止策略。
 
@@ -48,7 +48,21 @@ Registry 不解析 Provider JSON，也不替 Policy 做批准决定。它只处�
 
 `read` 的关键边界是：路径必须解析到 Workspace 内，读取有字节和行数上限，输出带行号，失败变成结构化结果。路径检查不是生产级沙箱，也不能消除所有 TOCTOU、挂载点或进程权限风险。
 
-## 4.5 M1 / M2 bridge
+## 4.5 `write`：一次可见的副作用（教学捷径，非推荐范式）
+
+```python
+{{#include ../../examples/python/m2-tool-runtime/tools/write.py:m2-write-tool}}
+```
+
+`write` 把模型给出的完整内容原子写入 Workspace 内的目标路径：先在同目录写临时文件，`fsync` 后 `os.replace`，失败时不留下半截文件。加入它是因为只读一次很难让读者确认 Runtime 真的在起作用；写入之后再读回同一个文件，才有一个可以肉眼检查的前后变化：
+
+```python
+{{#include ../../examples/python/m2-tool-runtime/test_runtime.py:m2-writing-case}}
+```
+
+**这不是推荐的生产设计。** 这里模型的写入意图被直接连到执行，中间没有任何审查：没有 diff、没有原因、没有人工或 Policy 把关，写完就是写完。真实 Harness 应该先把这个意图变成[第 9 章](ch9.md)的 `ChangeSet`——带原内容指纹、diff 和风险级别，经 Policy/审批后才 apply。本章不实现那套审查机制，只是先证明 Runtime 能够稳定执行一次副作用并把结果原样回报给模型；把"能执行"和"该不该被审查后再执行"分开，是刻意的教学顺序，不是疏漏。
+
+## 4.6 M1 / M2 bridge
 
 桥接必须是显式转换，而不是让 Runtime 开始解析 Provider JSON：
 
@@ -60,7 +74,7 @@ ToolResult     → ToolResultBlock → role=tool Message
 
 最重要的不变量是 `call_id`：`ToolUseBlock.id` 进入 `ToolCall.call_id`，执行后再成为 `ToolResultBlock.tool_use_id`，最终由 M1 编码成 `function_call_output.call_id`。
 
-## 4.6 固定一步闭环
+## 4.7 固定一步闭环
 
 真实的教学函数使用 Fake Transport 调用两次：
 
@@ -76,11 +90,11 @@ ToolResult     → ToolResultBlock → role=tool Message
 {{#include ../../examples/python/m2-tool-runtime/test_runtime.py:m2-reading-case}}
 ```
 
-## 4.7 局部 postcondition
+## 4.8 局部 postcondition
 
 一步闭环可以检查“工具成功”“输出包含某段文本”“文件存在”等局部条件，但这不是 M7 的任务级 Validation，也不是 Evidence。它只回答一次工具调用后，局部状态是否符合预期。
 
-## 4.8 验证与下一步
+## 4.9 验证与下一步
 
 ```bash
 python3.11 -m py_compile \
@@ -113,20 +127,21 @@ cargo test -p tutorial-agent-harness --offline
 {{#include assets/ch04/tool-call-failure-paths.mmd}}
 ```
 
-这仍然是固定一步、不是循环——第二次模型响应如果还想要工具，闭环会显式报错而不是继续。ls/find/grep/write/edit/bash 六个工具和原子写入仍只留在 `examples/` 与 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。实现与离线测试索引见 [实现索引](implementations.md)。
+这仍然是固定一步、不是循环——第二次模型响应如果还想要工具，闭环会显式报错而不是继续。4.5 节演示的 `write` 来自这里的 Python 实现，累计 Rust 工程尚未并入它；ls/find/grep/edit/bash 五个工具和原子写入同样仍只留在 `examples/` 与 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。实现与离线测试索引见 [实现索引](implementations.md)。
 
-## 4.9 第一个闭环的工程账本
+## 4.10 第一个闭环的工程账本
 
 本章前，模型只能提出一个结构化候选；本章后，`ToolRegistry`、`Workspace` 和 `read` 让一次动作经过校验、执行并把原 `call_id` 的观察返回给模型。收益是系统第一次真正改变了“模型只能输出文本”的边界：工具是否存在、路径是否越过工作区、读取是否成功，都可以由 Runtime 产生可观察结果，而不是让模型猜测。
 
-这个收益不是免费的。Registry 增加了注册和参数校验的耦合；Workspace 边界若只检查字符串路径，仍需面对 symlink、TOCTOU 和权限问题；工具失败、超时或副作用未知时，一步闭环没有恢复协议。AI 还可能选择不存在的工具、传入错误参数，或在拿到工具结果后仍然给出未经验证的结论。当前的局部 postcondition 只验证一次动作，不能替代任务级 Validator。
+这个收益不是免费的。Registry 增加了注册和参数校验的耦合；Workspace 边界若只检查字符串路径，仍需面对 symlink、TOCTOU 和权限问题；工具失败、超时或副作用未知时，一步闭环没有恢复协议。AI 还可能选择不存在的工具、传入错误参数，或在拿到工具结果后仍然给出未经验证的结论。当前的局部 postcondition 只验证一次动作，不能替代任务级 Validator。`write` 引入的是一类新风险：模型的写入意图未经任何审查就被执行，这是本章刻意留下、留给[第 9 章](ch9.md) `ChangeSet` 去解决的技术债，不是被忽略的问题。
 
 | 能力 | 当前状态 |
 | --- | --- |
 | Python/Rust M2 一步 Tool Runtime 与 `hello.txt` 案例 | 已实现并验证 |
 | Rust（累计工程）M2 一步 Tool Runtime（仅 `read`） | 已实现并验证 |
+| `write` 单次可见副作用（教学捷径，Python） | 已实现并验证，非推荐生产范式 |
 | 七工具、Workspace 和失败矩阵 | 已实现并验证，仍是教学边界 |
 | 多轮 Loop、预算、恢复、审批和 ChangeSet | 设计骨架/尚未实现 |
 | 生产级沙箱与外部副作用控制 | 尚未实现 |
 
-当前成熟度是 **Prototype**：这条路径可运行、可测试、能展示真实的模型—工具—观察闭环，但只支持固定一步，写入工具也不能被误称为完整变更审查系统。有意留下的技术债是把执行次数限制在一步，以便先看清 `call_id`、路径和失败回传。下一章的真实问题已经出现：第二次模型响应如果仍然提出工具，固定流程就无法继续；系统需要循环，但循环也必须带预算和停止原因。
+当前成熟度是 **Prototype**：这条路径可运行、可测试、能展示真实的模型—工具—观察闭环，但只支持固定一步；`write` 能让读者看到一次真实的文件改变，却不能被误称为完整变更审查系统——审查在[第 9 章](ch9.md)才出现。有意留下的技术债是把执行次数限制在一步、把写入和审查分开，以便先看清 `call_id`、路径和失败回传。下一章的真实问题已经出现：第二次模型响应如果仍然提出工具，固定流程就无法继续；系统需要循环，但循环也必须带预算和停止原因。

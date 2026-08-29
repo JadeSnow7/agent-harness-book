@@ -46,7 +46,7 @@ Mermaid 使用随书保存的本地 JavaScript 渲染，不依赖在线 CDN。`m
 ## 当前教学状态与阅读入口
 
 - M0–M2 是仓库中已有并可运行的 Python 教学示例；[阅读指南](book/src/reading-guide.md) 说明了各类实现状态如何阅读。
-- 累计 Rust 教学工程 `tutorial/agent-harness/` 已从 ch2 起建立，当前覆盖 M0（ch2）、M1（ch3）与 M2（ch4，仅 `read`），`cargo test -p tutorial-agent-harness --offline` 可离线验证；七工具完整版仍只在 `examples/` 中验证，见[实现索引](book/src/implementations.md)。
+- 累计 Rust 教学工程 `tutorial/agent-harness/` 已从 ch2 起建立，当前覆盖 M0（ch2）、M1（ch3）与 M2（ch4，仅 `read` 工具），`cargo test -p tutorial-agent-harness --offline` 可离线验证；ls/find/grep/write/edit/bash 六个工具与完整失败矩阵仍只在 `examples/python/m2-tool-runtime` 中验证，见[实现索引](book/src/implementations.md)。
 - P0 是确定性的 Rust 组合参考，用于验证跨模块组合，不代表 M3–M10 已经实现。
 - [ch0](book/src/ch0.md) 的架构地图与 AI Coding 工作流资产已经建立；工作流协议见 [`docs/prompts/workflow/v1/README.md`](docs/prompts/workflow/v1/README.md)，当前接受版本是 v2（新增 Artifact Recorder），决策记录见 [`docs/decisions/reader-ai-coding-workflow-v2.md`](docs/decisions/reader-ai-coding-workflow-v2.md)。
 - M3–M10 尚未逐章实现。

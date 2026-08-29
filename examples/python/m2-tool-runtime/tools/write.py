@@ -27,6 +27,7 @@ class WriteTool:
             },
         )
 
+    # ANCHOR: m2-write-tool
     def validate_arguments(self, arguments: Mapping[str, Any]) -> None:
         path = arguments.get("path")
         if not isinstance(path, str) or not path.strip():
@@ -43,3 +44,4 @@ class WriteTool:
             "path": self.workspace.relative_to_root(path),
             "bytes_written": len(content.encode("utf-8")),
         }
+    # ANCHOR_END: m2-write-tool

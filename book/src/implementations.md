@@ -30,7 +30,15 @@
 | Rust | `examples/rust/m2-tool-runtime/` | `cargo test -p m2-tool-runtime` | 已实现并验证 |
 | Rust（累计工程） | `tutorial/agent-harness/` | `cargo test -p tutorial-agent-harness --offline` | 已实现并验证 |
 
-累计工程只注册 `read`；ls/find/grep/write/edit/bash 与原子写入仍只存在于 examples/。主线案例使用 `read hello.txt`。七工具、Workspace 和完整失败矩阵见 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。
+累计工程只注册 `read`；ls/find/grep/edit/bash 与原子写入仍只存在于 examples/。主线案例使用 `read hello.txt`；`write` 在 ch4.md 4.5 节作为教学捷径单独演示，出自这里的 Python 实现，同样尚未并入累计工程。七工具、Workspace 和完整失败矩阵见 [M2 Tool Runtime 实验](labs/m2-tool-runtime.md)。
+
+## M3：Agent Loop
+
+| 语言 | 源码 | 测试 | 状态 |
+|---|---|---|---|
+| Python | `examples/python/m3-agent-loop/agent_loop.py` | `python3.11 -m unittest discover -s examples/python/m3-agent-loop -p 'test_*.py'` | 已实现并验证 |
+
+`run_agent_loop` 在预算内反复调用模型、执行恰好一个工具候选，直到四个 `StopReason`（`COMPLETED`、`BUDGET_EXHAUSTED`、`AMBIGUOUS_TOOL_REQUEST`、`UNRECOGNIZED_ACTION`）之一显式停止；只注册 `read`，复用 M2 已验证的 `ToolRegistry`/`bridge`。Rust 独立示例和累计工程（`tutorial/agent-harness/`）的对应增量尚未提供，本页不为它们创建空链接。
 
 ## P0：确定性组合切片
 

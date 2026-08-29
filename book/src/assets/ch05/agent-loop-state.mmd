@@ -1,0 +1,8 @@
+stateDiagram-v2
+    [*] --> CallingModel
+    CallingModel --> ExecutingTool: 恰好一个 ToolCall
+    ExecutingTool --> CallingModel: ToolResult（成功或失败都算观察）
+    CallingModel --> Completed: 非空最终文本
+    CallingModel --> BudgetExhausted: 达到 max_steps / max_tool_calls
+    CallingModel --> AmbiguousToolRequest: 一轮出现多个 ToolCall
+    CallingModel --> UnrecognizedAction: 解码失败，或既非工具也非文本
