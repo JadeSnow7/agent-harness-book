@@ -12,6 +12,7 @@ members = [
     "examples/rust/m0-model-call",
     "examples/rust/m1-unified-protocol",
     "examples/rust/m2-tool-runtime",
+    "examples/rust/m3-agent-loop",
     "tutorial/agent-harness",
 ]
 resolver = "3"
