@@ -43,13 +43,15 @@ Mermaid 使用随书保存的本地 JavaScript 渲染，不依赖在线 CDN。`m
 
 本地 P0 示例的预期结果包含 `outcome=Completed`、`event_count=11` 和 `evidence_count=1`。
 
+M4–M10 also have one cumulative Python package and one independent example per milestone. The package is imported with PYTHONPATH=tutorial/python and remains stdlib-only, offline, in-memory, and deterministic.
+
 ## 当前教学状态与阅读入口
 
 - M0–M2 是仓库中已有并可运行的 Python 教学示例；[阅读指南](book/src/reading-guide.md) 说明了各类实现状态如何阅读。
-- 累计 Rust 教学工程 `tutorial/agent-harness/` 已从 ch2 起建立，当前覆盖 M0（ch2）、M1（ch3）与 M2（ch4，仅 `read`），`cargo test -p tutorial-agent-harness --offline` 可离线验证；七工具完整版仍只在 `examples/` 中验证，见[实现索引](book/src/implementations.md)。
-- P0 是确定性的 Rust 组合参考，用于验证跨模块组合，不代表 M3–M10 已经实现。
+- 累计 Rust 教学工程 `tutorial/agent-harness/` 已从 ch2 起建立，当前覆盖 M0（ch2）、M1（ch3）与 M2（ch4，仅 `read` 工具），`cargo test -p tutorial-agent-harness --offline` 可离线验证；ls/find/grep/write/edit/bash 六个工具与完整失败矩阵仍只在 `examples/python/m2-tool-runtime` 中验证，见[实现索引](book/src/implementations.md)。
+- P0 是确定性的 Rust 组合参考，用于验证跨模块组合；它与已实现并验证的 Python M3–M10 教学切片是两条不同的证据线。
 - [ch0](book/src/ch0.md) 的架构地图与 AI Coding 工作流资产已经建立；工作流协议见 [`docs/prompts/workflow/v1/README.md`](docs/prompts/workflow/v1/README.md)，当前接受版本是 v2（新增 Artifact Recorder），决策记录见 [`docs/decisions/reader-ai-coding-workflow-v2.md`](docs/decisions/reader-ai-coding-workflow-v2.md)。
-- M3–M10 尚未逐章实现。
+- Python M3–M10 已有源码、离线测试和章节正文；独立 Rust M3 已有源码和离线测试，Rust M4–M10、真实 Provider、持久恢复和生产安全能力仍不在本轮范围内。
 
 ## Workspace
 

@@ -367,10 +367,8 @@ fn all_five_outcomes_are_covered_by_the_suite() {
     ]
     .into_iter()
     .collect();
-    let all_outcomes: std::collections::BTreeSet<Outcome> = scenarios
-        .iter()
-        .map(|(_, result)| result.outcome)
-        .collect();
+    let all_outcomes: std::collections::BTreeSet<Outcome> =
+        scenarios.iter().map(|(_, result)| result.outcome).collect();
     assert_eq!(achieved.len(), 5);
     assert_eq!(all_outcomes, achieved);
 }

@@ -74,6 +74,7 @@ class ReadWriteEditTests(WorkspaceTestCase):
         self.assertIn("hello workspace", result.output["content"])
         self.assertEqual(result.output["line_count"], 1)
 
+    # ANCHOR: m2-writing-case
     def test_write_and_read_round_trip(self):
         written = self.execute(
             "write",
@@ -83,6 +84,7 @@ class ReadWriteEditTests(WorkspaceTestCase):
         read = self.execute("read", {"path": "notes/a.txt"})
         self.assertTrue(read.succeeded)
         self.assertIn("payload", read.output["content"])
+    # ANCHOR_END: m2-writing-case
 
     def test_edit_unique_match(self):
         result = self.execute(

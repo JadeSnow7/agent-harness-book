@@ -65,9 +65,16 @@ pub enum Event {
     ModelInput(Vec<HistoryItem>),
     ModelAction(ModelAction),
     ToolResult(ToolResult),
-    InvalidAction { reason: &'static str, detail: String },
-    PolicyDenied { tool_id: String },
-    BudgetExhausted { max_steps: u32 },
+    InvalidAction {
+        reason: &'static str,
+        detail: String,
+    },
+    PolicyDenied {
+        tool_id: String,
+    },
+    BudgetExhausted {
+        max_steps: u32,
+    },
     Cancelled,
     ValidationPassed(String),
     ValidationFailed(String),
