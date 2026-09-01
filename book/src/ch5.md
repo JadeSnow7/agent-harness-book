@@ -1,6 +1,6 @@
 # 第 5 章：第一个 Agent Loop
 
-**状态：M3 Python 原型已实现并验证；Rust 独立示例和累计工程增量仍是设计骨架/尚未实现。** 本章的 `examples/python/m3-agent-loop/` 是可以离线跑通的真实代码；`tutorial/agent-harness/` 还停在第 4 章的 `one_step`，没有并入循环，这条 Rust 增量留给后续任务。
+**状态：M3 Python 原型已实现并验证；Rust 独立示例和累计 Rust 工程增量仍是设计骨架/尚未实现。** 本章的 `examples/python/m3-agent-loop/` 是可以离线跑通的真实代码；Python M4–M10 的累计包位于 tutorial/python/agent_harness，并在后续章节分别验证。
 
 第 4 章的 `one_step` 很诚实：第一次模型调用提出工具，Runtime 执行一次，第二次模型调用给出文本。它也留下了一个明显问题：如果第二次响应又提出工具，我们只能报错。模型—工具—模型还没有成为循环。
 
@@ -89,7 +89,7 @@ python3.11 -m unittest discover -s examples/python/m3-agent-loop -p 'test_*.py'
 
 最后一条需要额外说明：M1 的 `decode_response` 保证只要成功解码，响应必然满足“有工具候选或有非空文本”之一，这条分支用真实的脚本化 Transport 造不出来，测试直接 mock 了 `complete()` 的返回值来验证 `run_agent_loop` 自身的分支逻辑，不是伪装成一条端到端场景。这不是本章的漏洞，而是刻意保留的防御——`run_agent_loop` 不应该假设未来所有 Provider 适配器都维持同一条不变量。
 
-Rust 累计工程尚未跟进这条增量；`tutorial/agent-harness/` 仍停在 `one_step`，`cargo test -p tutorial-agent-harness --offline` 覆盖的还是第 4 章的一步闭环，不包含循环。
+Rust 累计工程尚未跟进这条增量；cargo test -p tutorial-agent-harness --offline 覆盖的仍是第 4 章的一步闭环，不包含循环。Python M3–M10 使用实现索引中的独立命令。
 
 ## 5.7 本章将得到什么
 

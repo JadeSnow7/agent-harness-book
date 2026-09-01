@@ -40,6 +40,8 @@ Rust 对照实现承担另一项任务。类型、错误、状态与资源边界
 
 因此，本书根据读者门槛、任务风险、生态支持、跨平台要求和验证成本选择实现语言，而不把某一种语言写成普遍答案。当前实现索引只列出已经存在并经过验证的 Python、Rust 版本；TypeScript 会在实现、离线测试和类型检查都具备之后再加入。
 
+从 CH06 到 CH16，累计 Python 主线位于 tutorial/python/agent_harness，章节 demo 和测试位于 examples/python/m4–m10。它们是已实现并验证的内存教学切片；Rust P0 仍是独立的参考组合，不能互相替代。
+
 ## 章节状态如何阅读
 
 - **已实现并验证**：可以直接运行对应命令，并以源码和测试为准。
@@ -104,4 +106,4 @@ ch15 + Extension Boundary
 ch16 + Domain Composition
 ```
 
-当前仓库另外有一条 P0 参考路径，把模型、上下文、Policy、Tool、Validation、事件和 Evidence 组合起来。它用于验证跨模块不变量，不能替代 ch5–ch16 各自应完成的独立教学实现。
+当前仓库另外有一条 P0 参考路径，把模型、上下文、Policy、Tool、Validation、事件和 Evidence 组合起来。它用于验证跨模块不变量；Python M4–M10 则提供各章独立入口，但二者都不等于生产系统。

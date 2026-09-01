@@ -21,6 +21,8 @@ Python 是正文的教学语言；已验证的 Python、Rust 实现通过实现�
 - **P0 参考实现**：确定性、内存内、无外部副作用的组合切片，不等于生产级 subsystem。
 - **设计骨架/尚未实现**：用于冻结问题、接口方向和验证场景，不得写成已有能力。
 
+本轮状态快照：Python M4–M10 已在 tutorial/python/agent_harness 建立累计实现，并在各章 examples/python/m4–m10 中完成离线测试；Rust M3–M10、真实 Provider、durable recovery、OS sandbox 和生产扩展仍未实现。P0 仍是独立 Rust 参考组合。
+
 ## Part I — 从模型开始
 
 - ch0 绪论：从模型到 Agent 系统
