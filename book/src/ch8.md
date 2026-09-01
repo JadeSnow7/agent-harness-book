@@ -17,7 +17,7 @@ assert ledger.require_result("run-1:call-1")["status"] == "ok"
 
 RecoveryDecision 将已知失败映射到 retry，将执行后故障映射到 resume；UNKNOWN 或 Ambiguous 映射到 stop。相同 key 的不同 intent 会抛出 IdentityMismatch。重要失败路径是错误 token、身份/摘要不匹配和 ambiguous 后再次尝试；Ambiguous 没有自动 replay。
 
-并发测试用 32 个线程声索同一 key，证明只有一个 RESERVED。该证据证明的是本进程锁的教学行为，不是多进程或崩溃持久化。
+并发测试用 8 个线程声索同一 key，证明只有一个 RESERVED。该证据证明的是本进程锁的教学行为，不是多进程或崩溃持久化。
 
 ## 8.3 验证命令与边界
 
