@@ -11,6 +11,12 @@ class EffectsTests(unittest.TestCase):
  def test_stale_hash(self): self.assertRaises(ContractError,EffectApplier().apply,ChangeSet.create('x','a','b','r','l'),'z')
  def test_policy_deny_invalid(self): self.assertEqual(authorize(object()).decision,Decision.DENY.value)
  def test_effect_intent_fields(self): self.assertEqual(EffectIntent('c','t','d','effect','s','p','r',{}).scope,'s')
+ def test_intent_digest_is_stable_and_sensitive_to_arguments(self):
+  first=EffectIntent('c','tool','domain',EffectKind.EFFECT,'scope','policy','run',{'b':2,'a':1})
+  same=EffectIntent('c','tool','domain',EffectKind.EFFECT,'scope','policy','run',{'a':1,'b':2})
+  changed=EffectIntent('c','tool','domain',EffectKind.EFFECT,'scope','policy','run',{'a':1,'b':3})
+  self.assertEqual(intent_digest(first),intent_digest(same))
+  self.assertNotEqual(intent_digest(first),intent_digest(changed))
  def test_input_schema_precedes_policy_ledger_and_handler(self):
   seen=[]; descriptor=ToolDescriptor('mutate','demo',EffectKind.EFFECT,{'type':'object','required':['x']},{'type':'object'})
   registry=ToolRegistry([ToolSpec(descriptor,lambda args:(seen.append(args) or {}))]); ledger=IdempotencyLedger()

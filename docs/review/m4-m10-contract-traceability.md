@@ -14,8 +14,8 @@
 | I08 | CH10 | authorize | test_ask_by_default; test_policy_deny_invalid | PolicyDecision | dynamic test | 无真实 capability sandbox |
 | I09 | CH13 | Runner + IdempotencyLedger | test_runner_effect_reserves_before_handler_and_validates_finish | reserve-before-execute | dynamic test | durable ledger 未实现 |
 | I10 | CH08 | IdempotencyLedger.reserve | test_concurrent_reservation_has_one_executor | reservation ledger | dynamic test | RLock 仅保护单进程 |
-| I11 | CH08/10 | intent_digest(EffectIntent) | test_stale_approval_is_denied | intent identity digest | dynamic test | normalized arguments 仍是 JSON 级 |
-| I12 | CH08 | reserve identity/digest check | test_idempotency_identity_and_digest | identity mismatch | dynamic test | 无数据库唯一约束 |
+| I11 | CH08/10 | intent_digest(EffectIntent) | test_intent_digest_is_stable_and_sensitive_to_arguments | normalized intent digest stability and parameter sensitivity | dynamic test | normalized arguments 仍是 JSON 级 |
+| I12 | CH08 | reserve identity/digest check | test_idempotency_identity_and_digest_mismatch | same-key identity mismatch and digest mismatch | dynamic test | 无数据库唯一约束 |
 | I13 | CH08 | Outcome.AMBIGUOUS, RecoveryDecision | test_unknown_is_permanent; test_recovery_actions | unknown result fail closed | dynamic test | 未接真实 crash failpoint |
 | I14 | CH08 | Outcome enum, LedgerRecord.terminal | test_append_only_terminal_and_reuse | Reserved/InProgress/Completed/Failed/Ambiguous | dynamic test | 只允许教学状态转换 |
 | I15 | CH10/13 | ToolResult.error | test_schema_failures; runner_effect_probe | structured tool result | dynamic test | 观测保留策略未配置 |

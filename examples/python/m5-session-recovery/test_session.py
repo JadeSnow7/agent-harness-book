@@ -5,9 +5,10 @@ class SessionTests(unittest.TestCase):
   i=Identity('s','t','r'); l=EventLog(); l.append(EventEnvelope(1,'x',i,{}))
   with self.assertRaises(ContractError): l.append(EventEnvelope(3,'bad',i,{}))
   self.assertEqual(decide(Outcome.AMBIGUOUS).action,RecoveryAction.STOP)
- def test_idempotency_identity_and_digest(self):
-  l=IdempotencyLedger(); l.reserve('k',Identity('s','t','r'),'d')
+ def test_idempotency_identity_and_digest_mismatch(self):
+  l=IdempotencyLedger(); identity=Identity('s','t','r'); l.reserve('k',identity,'d')
   with self.assertRaises(IdentityMismatch): l.reserve('k',Identity('s','t','other'),'d')
+  with self.assertRaises(IdentityMismatch): l.reserve('k',identity,'changed')
  def test_append_only_terminal_and_reuse(self):
   i=Identity('s','t','r'); l=EventLog(); l.append(EventEnvelope(1,'done',i,{},True))
   with self.assertRaises(ContractError): l.append(EventEnvelope(2,'late',i,{}))
