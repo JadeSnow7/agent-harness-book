@@ -19,7 +19,7 @@
 | I13 | CH08 | Outcome.AMBIGUOUS, RecoveryDecision | test_unknown_is_permanent; test_recovery_actions | unknown result fail closed | dynamic test | 未接真实 crash failpoint |
 | I14 | CH08 | Outcome enum, LedgerRecord.terminal | test_append_only_terminal_and_reuse | Reserved/InProgress/Completed/Failed/Ambiguous | dynamic test | 只允许教学状态转换 |
 | I15 | CH10/13 | ToolResult.error | test_schema_failures; runner_effect_probe | structured tool result | dynamic test | 观测保留策略未配置 |
-| I16 | CH07 | EventLog.replay | test_event_log_and_replay | append-only event ledger | dynamic test | replay state 不是 durable recovery |
+| I16 | CH07 | EventLog.replay | test_core.CoreTests.test_event_snapshot_roundtrip | replay() 返回事件并保留 identity | dynamic test | 仅证明内存 replay 调用，不是 durable recovery |
 | I17 | CH12 | Evidence.supporting_events | test_missing_seq_rejected | Evidence provenance | dynamic test | artifact store 未实现 |
 | I18 | CH12 | ReviewBundle.bind | test_review_bundle_changes_when_any_input_changes | ReviewBundle binds ChangeSet/Validation/Evidence | dynamic test | 未有生产审批服务 |
 | I19 | CH12 | ReviewBundle.bundle_digest, Approval | test_stale_approval_is_denied | stale approval rejection | dynamic test | caller 必须提供正确摘要字段 |
